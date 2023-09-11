@@ -52,12 +52,8 @@ module.exports = {
         },
         buttonGreen: '#00CC5E',
         titleGray: '#3C3C3C',
-        green: '#F3FCEB'
-      },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        green: '#F3FCEB',
+        titleBlack: '#1C1C1C'
       },
       keyframes: {
         'accordion-down': {

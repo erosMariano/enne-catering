@@ -44,7 +44,7 @@ export default function MainNav() {
   }, []);
   return (
     <header
-      className={`transition-all w-full flex items-center h-[70px] sticky top-0 z-20 ${
+      className={`transition-all w-full flex items-center h-[70px] sticky top-0 z-30 ${
         showGradient ? 'bg-white/90' : 'bg-transparent'
       } ${poppins.className}`}
     >

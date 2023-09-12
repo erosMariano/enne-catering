@@ -2,11 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ButtonGreen from '@/components/button-green';
+import MostPopularArticles from '@/components/home/most-popular-articles';
+import MostRecentArticles from '@/components/home/most-recent-articles';
 import QuickNavigation from '@/components/home/quick-navigation';
+import Newsletter from '@/components/Newsletter';
 
 import CardImage3 from '@/assets/images/bg-image-taco.jpg';
 import CardImage1 from '@/assets/images/bg-img-salad.jpg';
-import CardImage2 from '@/assets/images/bg-img-smothie.jpg';
+import CardImage2 from '@/assets/images/bg-img-smoothie.jpg';
 import CardImage4 from '@/assets/images/bg-img-suco.jpg';
 import ArrowButtonNext from '@/assets/images/icons/arrow-button-next.svg';
 import PratoImage from '@/assets/images/img-prato-hero.png';
@@ -112,11 +115,11 @@ export default async function Home() {
                 src={CardImage2}
                 width={270}
                 height={260}
-                alt="Imagem Smothie de morango"
+                alt="Imagem Smoothie de morango"
                 className="rounded-lg"
               />
               <h3 className="my-3 text-titleBlack text-xl font-normal">
-                Smothie de morango
+                Smoothie de morango
               </h3>
               <p className="text-titleGray text-xs font-medium">
                 Uma deliciosa opção de sobremesa para os dias ensolarados.
@@ -159,6 +162,9 @@ export default async function Home() {
       </section>
 
       <QuickNavigation />
+      <MostRecentArticles />
+      <MostPopularArticles />
+      <Newsletter />
     </>
   );
 }

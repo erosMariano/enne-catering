@@ -8,7 +8,7 @@ import SobremesaImage from '@/assets/images/btn-sobremesas.png';
 import SoupImage from '@/assets/images/btn-soup.png';
 import VeganImage from '@/assets/images/btn-vegan.png';
 
-function QuickNavigation() {
+export default function QuickNavigation() {
   const navigationItems = [
     {
       href: '/',
@@ -67,5 +67,3 @@ function QuickNavigation() {
     </section>
   );
 }
-
-export default QuickNavigation;

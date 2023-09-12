@@ -92,4 +92,10 @@
 .menu_blog li:hover::after{
   width: 70%;
 }
+.inter {
+  font-family: var(--font-inter);
+}
 
+.poppins {
+  font-family: var(--font-poppins);
+}

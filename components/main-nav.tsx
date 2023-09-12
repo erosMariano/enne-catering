@@ -1,6 +1,5 @@
 'use client';
 
-import { Poppins } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -21,8 +20,6 @@ import {
 import AvatarImage from '@/assets/images/icons/avatar.svg';
 import LogoImage from '@/assets/images/logo.svg';
 import { ChevronDown, Search } from 'lucide-react';
-
-const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '700'] });
 
 export default function MainNav() {
   const [showGradient, setShowGradient] = useState(false);
@@ -46,7 +43,7 @@ export default function MainNav() {
     <header
       className={`transition-all w-full flex items-center h-[70px] sticky top-0 z-30 ${
         showGradient ? 'bg-white/90' : 'bg-transparent'
-      } ${poppins.className}`}
+      } poppins`}
     >
       <div className="container flex items-center w-full">
         <Link href="/">

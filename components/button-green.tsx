@@ -9,7 +9,7 @@ function ButtonGreen({ children, href }: ButtonGreenProps) {
   return (
     <Link
       href={href}
-      className="py-[10px] px-5 bg-buttonGreen rounded-full text-white font-semibold flex items-center justify-center w-auto"
+      className="py-[10px] inter px-5 bg-buttonGreen rounded-full text-white font-semibold flex items-center justify-center w-auto"
     >
       {children}
     </Link>

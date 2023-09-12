@@ -1,6 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 
 import MainNav from '@/components/main-nav';
 
@@ -8,7 +8,13 @@ import { AuthProvider } from '@/providers/session-provider';
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '700', '800']
+  weight: ['400', '500', '700', '800'],
+  variable: '--font-inter'
+});
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '800'],
+  variable: '--font-poppins'
 });
 
 export const metadata: Metadata = {
@@ -37,7 +43,7 @@ export default function RootLayout({
         sizes="<generated>"
       />
 
-      <body className={`${inter.className} teste`}>
+      <body className={`${inter.variable} ${poppins.variable}`}>
         <AuthProvider>
           <MainNav />
           {children}

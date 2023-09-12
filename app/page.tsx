@@ -84,7 +84,7 @@ export default async function Home() {
       </main>
       <section className="py-12">
         <div className="container">
-          <div className="flex items-center justify-between mb-16">
+          <div className="flex items-center justify-between mb-11">
             <h2 className="text-[32px] inter font-bold text-titleBlack">
               Receitas <span className="text-buttonGreen">em alta</span>
             </h2>

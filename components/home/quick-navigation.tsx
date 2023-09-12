@@ -48,7 +48,7 @@ export default function QuickNavigation() {
           Navegação rápida
         </h2>
 
-        <div className="grid grid-cols-6 gap-11 mt-8">
+        <div className="grid grid-cols-6 gap-11 mt-11">
           {navigationItems.map((item) => (
             <div key={item.label}>
               <Image

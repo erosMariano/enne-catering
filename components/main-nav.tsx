@@ -23,21 +23,24 @@ import { ChevronDown, Search } from 'lucide-react';
 
 export default function MainNav() {
   const [showGradient, setShowGradient] = useState(false);
+  const handleScroll = () => {
+    if (window.scrollY > 0) {
+      setShowGradient(true);
+    } else {
+      setShowGradient(false);
+    }
+  };
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setShowGradient(true);
-      } else {
-        setShowGradient(false);
-      }
-    };
-
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    handleScroll();
   }, []);
   return (
     <header

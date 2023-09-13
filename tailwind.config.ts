@@ -52,6 +52,7 @@ module.exports = {
         },
         buttonGreen: '#00CC5E',
         titleGray: '#3C3C3C',
+        backgroundGray: '#DDD',
         titleGray6: '#666666',
         green: '#F3FCEB',
         titleBlack: '#1C1C1C'

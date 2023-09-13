@@ -18,7 +18,9 @@ export default function MostPopularArticles() {
             Artigos mais <span className="text-buttonGreen">Recentes</span>
           </h2>
 
-          <ButtonGreen href="#">Ver mais</ButtonGreen>
+          <ButtonGreen variant="normal" href="#">
+            Ver mais
+          </ButtonGreen>
         </div>
 
         <div className="flex justify-between">

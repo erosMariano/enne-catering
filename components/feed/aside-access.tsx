@@ -1,36 +1,45 @@
 import Image from 'next/image';
 import React from 'react';
 
-import ImageReceitas from '@/assets/images/bg-image-taco.jpg';
+import ImageReceita1 from '@/assets/images/bg-img-airfryer-access.png';
+import ImageReceita2 from '@/assets/images/img-2-access.png';
+import ImageReceita3 from '@/assets/images/img-3-access.png';
+import ImageReceita4 from '@/assets/images/img-4-access.png';
+import ImageReceita5 from '@/assets/images/img-5-access.png';
 import { Clock4 } from 'lucide-react';
 
 export default function AsideAccess() {
   const itemsAccess = [
     {
-      image: ImageReceitas,
+      image: ImageReceita1,
       label:
         '5 receitas fáceis de Poke, a comida havaiana que conquistou o mundo.',
       date: '17/05/23',
       href: '/'
     },
     {
-      image: ImageReceitas,
+      image: ImageReceita2,
       label:
-        '3 receitas fáceis de Poke, a comida havaiana que conquistou o mundo.',
+        '10 receitas saudáveis para você fazer em casa e melhorar seus hábitos alimentares.',
+      date: '13/04/23',
+      href: '/'
+    },
+    {
+      image: ImageReceita3,
+      label:
+        'Saiba os benefícios da água no seu organismo, e como mantê-la no seu dia a dia.',
+      date: '08/06/23',
+      href: '/'
+    },
+    {
+      image: ImageReceita4,
+      label: '10 receitas fáceis para jantar sem ter muito trabalho',
       date: '17/05/23',
       href: '/'
     },
     {
-      image: ImageReceitas,
-      label:
-        '4 receitas fáceis de Poke, a comida havaiana que conquistou o mundo.',
-      date: '17/05/23',
-      href: '/'
-    },
-    {
-      image: ImageReceitas,
-      label:
-        '5 receitas fáceis de Poke, a comida havaiana que conquistou o mundo.',
+      image: ImageReceita5,
+      label: 'Descubra qual a diferença entre bacon, toucinho e paleta',
       date: '17/05/23',
       href: '/'
     }

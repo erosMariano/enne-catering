@@ -55,7 +55,8 @@ module.exports = {
         backgroundGray: '#DDD',
         titleGray6: '#666666',
         green: '#F3FCEB',
-        titleBlack: '#1C1C1C'
+        titleBlack: '#1C1C1C',
+        backgroundGreen: '#EDFCEB'
       },
       keyframes: {
         'accordion-down': {

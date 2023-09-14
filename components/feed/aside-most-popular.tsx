@@ -37,7 +37,7 @@ export default function AsideMostPopular() {
   ];
 
   return (
-    <aside className="w-[282px]">
+    <aside className="w-[282px]  sticky top-24">
       <h2 className="poppins text-2xl font-semibold text-titleBlack">
         Mais Populares
       </h2>

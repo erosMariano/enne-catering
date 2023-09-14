@@ -19,7 +19,7 @@ import {
 
 import AvatarImage from '@/assets/images/icons/avatar.svg';
 import LogoImage from '@/assets/images/logo.svg';
-import { ChevronDown, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export default function MainNav() {
   const [showGradient, setShowGradient] = useState(false);
@@ -71,33 +71,9 @@ export default function MainNav() {
             <li className="hover:text-buttonGreen transition-all">
               <Link href="/">Área Vegana</Link>
             </li>
-            <li className="hover:text-buttonGreen transition-all">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <div className="flex items-center hover:text-buttonGreen cursor-pointer transition-all gap-1">
-                    <span>Mais</span>
-                    <ChevronDown width={16} height={16} />
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-56 mt-2"
-                  align="end"
-                  forceMount
-                >
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>
-                      Item 1<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      Item 2<DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </li>
 
             <li className="hover:text-buttonGreen transition-all">
-              Todas as receitas
+              <Link href="/">Todas as receitas</Link>
             </li>
           </ul>
         </nav>

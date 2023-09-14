@@ -4,7 +4,7 @@ import React from 'react';
 import ImageNewsletter from '@/assets/images/image-news.png';
 export default function Newsletter() {
   return (
-    <section className="py-12 bg-green">
+    <section className="py-12 bg-green overflow-hidden">
       <div className="container flex items-center justify-between gap-4">
         <div className="w-[502px]">
           <h4 className="text-4xl text-titleBlack inter font-extrabold mb-7">

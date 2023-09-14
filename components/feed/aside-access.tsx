@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import ImageReceita1 from '@/assets/images/bg-img-airfryer-access.png';
@@ -46,14 +47,14 @@ export default function AsideAccess() {
   ];
 
   return (
-    <aside className="w-[269px] border border-backgroundGray p-4">
+    <aside className="w-[269px] border border-backgroundGray p-4  sticky top-24">
       <h2 className="poppins text-base font-semibold text-titleBlack mb-2">
         Acesso Rápido
       </h2>
 
       <div className="flex flex-col gap-4">
         {itemsAccess.map((el) => (
-          <div key={el.label} className="flex gap-1">
+          <Link href={'/'} key={el.label} className="flex gap-1 items-start">
             <Image
               width={80}
               height={80}
@@ -63,15 +64,15 @@ export default function AsideAccess() {
             />
 
             <div className="w-full flex flex-col justify-between">
-              <span className="poppins text-titleGray6 text-[8px] font-medium ">
+              <span className="poppins text-titleGray6 font-medium text-xs leading-[initial]">
                 {el.label}
               </span>
-              <span className="flex items-end poppins gap-1 text-titleGray6 text-[8px] font-medium ">
-                Em <Clock4 width={16} height={16} color="#666" />
+              <span className="flex items-center poppins gap-1 text-titleGray6 text-xs leading-6 font-medium">
+                Em <Clock4 width={12} height={12} color="#666" />
                 {el.date}
               </span>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </aside>

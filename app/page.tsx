@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ButtonGreen from '@/components/button-green';
+import Footer from '@/components/footer';
 import MostPopularArticles from '@/components/home/most-popular-articles';
 import MostRecentArticles from '@/components/home/most-recent-articles';
 import QuickNavigation from '@/components/home/quick-navigation';
@@ -167,6 +168,7 @@ export default async function Home() {
       <MostRecentArticles />
       <MostPopularArticles />
       <Newsletter />
+      <Footer />
     </>
   );
 }

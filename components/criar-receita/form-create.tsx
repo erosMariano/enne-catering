@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React from 'react';
 
 import {
@@ -10,7 +11,7 @@ import {
   SelectValue
 } from '@/components/ui/select';
 
-import { Icon } from '@iconify/react/dist/iconify.js';
+import UploadImage from '@/assets/images/icons/upload.svg';
 
 const typesSnack = [
   {
@@ -26,12 +27,7 @@ export default function ChooseImage() {
   return (
     <div>
       <div className="relative border border-buttonGreen border-dashed h-[420px] flex items-center justify-center flex-col">
-        <Icon
-          icon="fontisto:cloud-up"
-          width={116}
-          height={90}
-          color="#53EF89"
-        />
+        <Image src={UploadImage} width={116} height={90} alt="Ícone upload" />
         <button className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center">
           Escolher imagem
         </button>

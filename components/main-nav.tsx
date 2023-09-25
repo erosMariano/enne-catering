@@ -13,7 +13,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
 
@@ -22,6 +21,7 @@ import LogoImage from '@/assets/images/logo.svg';
 import { Search } from 'lucide-react';
 
 export default function MainNav() {
+  const isLogged = true;
   const [showGradient, setShowGradient] = useState(false);
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -95,40 +95,69 @@ export default function MainNav() {
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
+
             <DropdownMenuContent className="w-56 mt-2" align="end" forceMount>
-              <DropdownMenuLabel className="font-normal">
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">shadcn</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    m@example.com
-                  </p>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  Profile
-                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Billing
-                  <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  Settings
-                  <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem>New Team</DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                Log out
-                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-              </DropdownMenuItem>
+              {isLogged ? (
+                <>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        Nome de usuário
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        email@email.com
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                      Perfil
+                    </DropdownMenuItem>
+                    <Link href="/criar-receita">
+                      <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                        Criar receita
+                      </DropdownMenuItem>
+                    </Link>
+
+                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                      Receita favorita
+                    </DropdownMenuItem>
+
+                    <div className="px-2">
+                      <DropdownMenuSeparator />
+                    </div>
+
+                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                      Sair
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </>
+              ) : (
+                <>
+                  <DropdownMenuGroup className="px-2 py-1">
+                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                      Login
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                      Cadastre-se
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
     </header>
   );
+}
+
+{
+  /* <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                Log out
+                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+              </DropdownMenuItem>*/
 }

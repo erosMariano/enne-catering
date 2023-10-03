@@ -29,14 +29,14 @@ export default function Login() {
             <input
               type="text"
               placeholder="E-mail"
-              className="px-5 w-[500px] h-10 rounded-full border border-titleGray6 Poppins"
+              className="px-5 w-[500px] h-[52px] rounded-full border border-titleGray6 Poppins"
             />
             <input
               type="password"
               placeholder="Senha"
-              className="px-5 mt-5 w-[500px] h-10 rounded-full border border-titleGray6 Poppins"
+              className="px-5 mt-5 w-[500px] h-[52px] rounded-full border border-titleGray6 Poppins"
             />
-            <button className="poppins text-xl text-titleGray6 mt-5 w-[500px] h-10 bg-backgroundGreen rounded-full border border-[#ABF6C5]">
+            <button className="poppins text-xl text-titleGray6 mt-5 w-[500px] h-[52px] bg-backgroundGreen rounded-full border border-[#ABF6C5]">
               Entrar
             </button>
           </div>
@@ -53,7 +53,7 @@ export default function Login() {
         </div>
       </div>
 
-      <div className="bg-backgroundGreen w-[40%] mt-[-7rem] h-[calc(100%+130px)] flex items-center justify-center flex-col">
+      <div className="bg-backgroundGreen ml-[-2%] w-[42%] mt-[-7rem] h-[calc(100%+130px)] flex items-center justify-center flex-col">
         <Image
           src={BannerLogin}
           alt="bannerLogin"

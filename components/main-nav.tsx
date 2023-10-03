@@ -1,5 +1,6 @@
 'use client';
 
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -21,7 +22,9 @@ import LogoImage from '@/assets/images/logo.svg';
 import { Search } from 'lucide-react';
 
 export default function MainNav() {
-  const isLogged = true;
+  const { data, status } = useSession();
+  const isLogged = status === 'authenticated';
+
   const [showGradient, setShowGradient] = useState(false);
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -89,8 +92,9 @@ export default function MainNav() {
                   <Image
                     width={28}
                     height={28}
-                    src={AvatarImage}
+                    src={!isLogged ? AvatarImage : data?.user?.image}
                     alt="Avatar logar"
+                    className="rounded-full object-contain"
                   />
                 </Avatar>
               </Button>
@@ -102,10 +106,10 @@ export default function MainNav() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        Nome de usuário
+                        {data?.user?.name}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
-                        email@email.com
+                        {data?.user?.email}
                       </p>
                     </div>
                   </DropdownMenuLabel>
@@ -128,7 +132,10 @@ export default function MainNav() {
                       <DropdownMenuSeparator />
                     </div>
 
-                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={() => signOut()}
+                      className="focus:bg-[#EDFCEB] cursor-pointer"
+                    >
                       Sair
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
@@ -136,11 +143,17 @@ export default function MainNav() {
               ) : (
                 <>
                   <DropdownMenuGroup className="px-2 py-1">
-                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={() => signIn('google')}
+                      className="focus:bg-[#EDFCEB] cursor-pointer"
+                    >
                       Login
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                    <DropdownMenuItem
+                      onClick={() => signIn('google')}
+                      className="focus:bg-[#EDFCEB] cursor-pointer"
+                    >
                       Cadastre-se
                     </DropdownMenuItem>
                   </DropdownMenuGroup>

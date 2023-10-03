@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import ChooseImage from '@/components/criar-receita/form-create';
 import Footer from '@/components/footer';
 
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '@/lib/auth-options';
 export default async function Article() {
   const session = await getServerSession(authOptions);
 

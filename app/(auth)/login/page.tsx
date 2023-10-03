@@ -29,12 +29,12 @@ export default function Login() {
             <input
               type="text"
               placeholder="E-mail"
-              className="px-5 w-[500px] h-[52px] rounded-full border border-titleGray6 Poppins"
+              className="focus:border-buttonGreen outline-none px-5 w-[500px] h-[52px] rounded-full border border-titleGray6 Poppins"
             />
             <input
               type="password"
               placeholder="Senha"
-              className="px-5 mt-5 w-[500px] h-[52px] rounded-full border border-titleGray6 Poppins"
+              className="focus:border-buttonGreen outline-none px-5 mt-5 w-[500px] h-[52px] rounded-full border border-titleGray6 Poppins"
             />
             <button className="poppins text-xl text-titleGray6 mt-5 w-[500px] h-[52px] bg-backgroundGreen rounded-full border border-[#ABF6C5]">
               Entrar

@@ -10,7 +10,7 @@ function LoginGoogle() {
   return (
     <button
       onClick={() => signIn('google', { callbackUrl: '/artigos' })}
-      className="h-20 flex items-center gap-5 justify-center bg-backgroundGreen w-full max-w-[500px] rounded-full poppins text-2xl font-medium text-titleGray"
+      className="text-xl h-[52px] flex items-center gap-5 justify-center bg-backgroundGreen w-full max-w-[500px] rounded-full poppins font-medium text-titleGray"
     >
       <Image
         src={GoogleImage}

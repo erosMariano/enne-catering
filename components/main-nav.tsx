@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -66,10 +66,12 @@ export default function MainNav() {
               <Link href="/">Home</Link>
             </li>
             <li className="hover:text-buttonGreen transition-all">
-              <Link href="/">Artigos</Link>
+              <Link href="/artigos">Artigos</Link>
             </li>
             <li className="hover:text-buttonGreen transition-all">
-              <Link href="/">Alimentação Saudável</Link>
+              <Link href="/categorias/alimentacao-saudavel">
+                Alimentação Saudável
+              </Link>
             </li>
             <li className="hover:text-buttonGreen transition-all">
               <Link href="/">Área Vegana</Link>
@@ -143,19 +145,17 @@ export default function MainNav() {
               ) : (
                 <>
                   <DropdownMenuGroup className="px-2 py-1">
-                    <DropdownMenuItem
-                      onClick={() => signIn('google')}
-                      className="focus:bg-[#EDFCEB] cursor-pointer"
-                    >
-                      Login
-                    </DropdownMenuItem>
+                    <Link href="/login">
+                      <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                        Login
+                      </DropdownMenuItem>
+                    </Link>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem
-                      onClick={() => signIn('google')}
-                      className="focus:bg-[#EDFCEB] cursor-pointer"
-                    >
-                      Cadastre-se
-                    </DropdownMenuItem>
+                    <Link href="/cadastrar">
+                      <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                        Cadastre-se
+                      </DropdownMenuItem>
+                    </Link>
                   </DropdownMenuGroup>
                 </>
               )}

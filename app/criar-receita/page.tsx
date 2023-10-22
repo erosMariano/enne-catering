@@ -8,8 +8,6 @@ import { authOptions } from '@/lib/auth-options';
 export default async function Article() {
   const session = await getServerSession(authOptions);
 
-  console.log(session);
-
   if (!session) redirect('/login');
   return (
     <>

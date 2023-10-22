@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model revenues {
+  id                String @id @default(uuid())
+  imageUrl          String
+  title             String
+  slug              String
+  description       String
+  preparation       Int
+  cooking           Int
+  total             Int
+  category          String
+  incomeQuantity    Int
+  incomeType        String
+  calories          Int
+  methodPreparation String
+  ingredients       String
+}

@@ -12,7 +12,7 @@ model revenues {
   imageUrl          String
   title             String
   slug              String
-  description       String
+  description       String   @db.LongText()
   preparation       Int
   cooking           Int
   total             Int
@@ -20,9 +20,9 @@ model revenues {
   incomeQuantity    Int
   incomeType        String
   calories          Int
-  presentation      String
-  methodPreparation String
-  ingredients       String
+  presentation      String   @db.LongText()
+  methodPreparation String   @db.LongText()
+  ingredients       String   @db.LongText()
   createAt          DateTime
   updateAt          DateTime
   userId            String?

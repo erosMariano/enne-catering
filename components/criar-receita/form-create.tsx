@@ -169,7 +169,6 @@ export default function ChooseImage({ idUser }: Props) {
       }
     }));
   }
-  console.log(revenue);
 
   function handleCookingTime(type: 'hour' | 'min', value: string) {
     const newValue = Number(value);
@@ -225,7 +224,6 @@ export default function ChooseImage({ idUser }: Props) {
     setIsLoading(true);
     try {
       const imageUrl = await handleUploadImage();
-      console.log(imageUrl);
       if (!String(imageUrl).includes('https')) {
         console.log('Error');
         return;
@@ -236,6 +234,8 @@ export default function ChooseImage({ idUser }: Props) {
         ...revenue
       };
 
+      console.log('DATA: ', data);
+
       const res = await fetch('/api/receitas/create', {
         method: 'POST',
         headers: {
@@ -244,6 +244,7 @@ export default function ChooseImage({ idUser }: Props) {
         body: JSON.stringify(data)
       });
 
+      console.log('RES ===> ', res);
       const { slug } = await res.json();
 
       router.push(`receita/${slug}`);

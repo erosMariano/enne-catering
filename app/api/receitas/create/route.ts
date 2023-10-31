@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { CreateRevenue } from '@/types/types';
 import { PrismaClient } from '@prisma/client';
+import { v4 as uuidv4 } from 'uuid';
 
 const prisma = new PrismaClient();
 export async function POST(req: Request) {
@@ -24,6 +25,7 @@ export async function POST(req: Request) {
       slug: createSlug(revenue.title),
       imageUrl: String(revenue.imageUrl),
       calories: revenue.calories,
+      presentation: revenue.presentation,
       category: revenue.category,
       description: revenue.description,
       cooking: revenue.preparationInformation.cooking,
@@ -32,7 +34,11 @@ export async function POST(req: Request) {
       incomeQuantity: revenue.income.quantity,
       incomeType: revenue.income.type,
       ingredients: revenue.ingredients,
-      methodPreparation: revenue.methodPreparation
+      methodPreparation: revenue.methodPreparation,
+      createAt: new Date(),
+      updateAt: new Date(),
+      id: uuidv4(),
+      userId: revenue.userId
     }
   });
 

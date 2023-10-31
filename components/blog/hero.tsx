@@ -3,40 +3,42 @@
 import Image from 'next/image';
 import React from 'react';
 
-import ImageLogo from '@/assets/images/car-imagem-artigo.jpg';
-import Avatar from '@/assets/images/image-perfil.png';
+import { User } from '@/types/types';
 import { Icon } from '@iconify/react';
 
-export default function Hero() {
+interface HeroProps {
+  imageUrl?: string;
+  title: string;
+  user: User;
+}
+export default function Hero({ imageUrl, title, user }: HeroProps) {
   return (
     <div className="mb-5">
       <Image
-        src={ImageLogo}
-        alt=""
+        src={imageUrl || ''}
+        alt={title}
         width={1020}
         height={420}
-        className="rounded"
-        placeholder="blur"
+        className="rounded h-[420px] object-cover"
       />
 
       <div className="mt-5 flex justify-between items-center flex-1 w-full">
         <div className="flex gap-4 p-2 w-full">
           <Image
-            src={Avatar}
-            alt=""
+            src={user.avatarUrl}
+            alt={user.name}
             width={72}
             height={72}
             className="rounded-full object-contain"
-            placeholder="blur"
           />
 
           <div className="flex gap-[89px]">
             <div>
               <span className="block poppins text-xl font-normal text-black mb-1">
-                Caroline Leite
+                {user.name}
               </span>
               <span className="text-titleGray6 poppins text-base">
-                Nutricionista
+                {user.function === '' ? 'Função não informada' : ''}
               </span>
             </div>
 

@@ -16,14 +16,14 @@ export default function Cadaster() {
             className="absolute top-[-7rem] left-0 w-[44%]"
           />
 
-          <div className="inter text-3xl text-titleGray font-bold">
+          <div className="inter text-3xl text-titleGray font-bold relative z-10">
             Bem vindo de volta!
           </div>
-          <p className="text-titleGray poppins text-xl mt-8 mb-5">
+          <p className="text-titleGray poppins text-xl mt-8 mb-5  relative z-10">
             Faça login com sua conta Enne Catering.
           </p>
 
-          <div className="flex w-[500px] items-center gap-10 my-10">
+          <div className="flex w-[500px] items-center gap-10 my-10  relative z-10">
             <span className="bg-titleGray6 h-[1px] w-full flex-1 relative top-1"></span>
             <span className="font-medium poppins text-2xl text-titleGray6">
               ou

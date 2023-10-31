@@ -2,18 +2,33 @@ import Image from 'next/image';
 import React from 'react';
 
 import TagIcon from '@/assets/images/icons/tag.svg';
+import { convertSecondsInMinutes } from '@/utils/convertSecondsInMinutes';
 
-export default function Revenue() {
+type Props = {
+  data: {
+    title: string;
+    description: string;
+    preparationInformation: {
+      tempoPreparo: number;
+      tempoCozimento: number;
+      total: number;
+    };
+    ingredients: string;
+    methodPreparation: string;
+    rendimento: string;
+    category: string;
+    incomeType: string;
+    calories: number;
+  };
+};
+export default function Revenue({ data }: Props) {
   return (
     <section className="mt-[136px] pt-10 pb-28 px-5 border border-[#53EF89] rounded">
       <h2 className="text-[28px] inter font-bold text-center text-titleBlack">
-        Bolo de laranja com chocolate e especiarias
+        {data.title}
       </h2>
 
-      <p className="text-titleGray text-xl py-10">
-        Uma combinação perfeita que desperta os sentidos e faz as delícias dos
-        mais pequenos. Aprenda a fazer bolo de laranja e chocolate.
-      </p>
+      <p className="text-titleGray text-xl py-10">{data.description}</p>
 
       <div className="py-5 mb-10">
         <div className="flex items-center mb-8">
@@ -30,7 +45,9 @@ export default function Revenue() {
               Tempo de Preparo:
             </span>
             <span className="inter text-[28px] text-titleGray font-bold">
-              20min
+              {convertSecondsInMinutes(
+                data.preparationInformation.tempoPreparo
+              )}
             </span>
           </div>
 
@@ -39,7 +56,9 @@ export default function Revenue() {
               Tempo de Cozimento:
             </span>
             <span className="inter text-[28px] text-titleGray font-bold">
-              35min
+              {convertSecondsInMinutes(
+                data.preparationInformation.tempoCozimento
+              )}
             </span>
           </div>
 
@@ -48,7 +67,7 @@ export default function Revenue() {
               Tempo Total de Preparo:
             </span>
             <span className="inter text-[28px] text-titleGray font-bold">
-              55min
+              {convertSecondsInMinutes(data.preparationInformation.total)}
             </span>
           </div>
         </div>
@@ -69,7 +88,7 @@ export default function Revenue() {
               Tipo de Refeição:
             </span>
             <span className="inter text-[28px] text-titleGray font-bold">
-              Bolos
+              {data.category}
             </span>
           </div>
 
@@ -78,7 +97,7 @@ export default function Revenue() {
               Rendimento de porções:
             </span>
             <span className="inter text-[28px] text-titleGray font-bold">
-              10 fatias
+              {data.rendimento} {data.incomeType}
             </span>
           </div>
 
@@ -87,7 +106,7 @@ export default function Revenue() {
               Calorias:
             </span>
             <span className="inter text-[28px] text-titleGray font-bold">
-              459kcal
+              {data.calories}kcal
             </span>
           </div>
         </div>
@@ -101,20 +120,13 @@ export default function Revenue() {
           </h3>
           <span className="ml-5 block flex-1 h-[1px] bg-[#53EF89]"></span>
         </div>
-        <ul className="ml-5">
-          <li className="list-disc poppins text-black text-xl">
-            275 g farinha
-          </li>
-          <li className="list-disc poppins text-black text-xl">250 g açúcar</li>
-          <li className="list-disc poppins text-black text-xl">
-            200 g manteiga
-          </li>
-          <li className="list-disc poppins text-black text-xl">5 ovos</li>
-          <li className="list-disc poppins text-black text-xl">2 laranjas</li>
 
-          <li className="list-disc poppins text-black text-xl">
-            125 g chocolate preto
-          </li>
+        <ul className="ml-5">
+          {data.ingredients.split('\n').map((text, index) => (
+            <li key={index} className="list-disc poppins text-black text-xl">
+              {text}
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -127,42 +139,18 @@ export default function Revenue() {
           <span className="ml-5 block flex-1 h-[1px] bg-[#53EF89]"></span>
         </div>
         <ul className="ml-5">
-          <li className="list-disc poppins text-black text-xl">
-            Lave muito bem as laranjas antes de começar (vai utilizar as cascas
-            mais tarde para decorar o bolo).
-          </li>
-
-          <li className="list-disc poppins text-black text-xl">
-            Retire as cascas da laranja com a ajuda de um descascador e corte-as
-            em tiras muito finas.
-          </li>
-
-          <li className="list-disc poppins text-black text-xl">
-            Esprema o sumo das laranjas. Reserve.
-          </li>
-          <li className="list-disc poppins text-black text-xl">
-            Num tacho, bata a manteiga com o açúcar até obter uma mistura
-            homogénea e cremosa.
-          </li>
-          <li className="list-disc poppins text-black text-xl">
-            Junte os ovos um a um, sem parar de bater entre a adição de cada
-            ovo.
-          </li>
-
-          <li className="list-disc poppins text-black text-xl">
-            Adicione o sumo de laranja ao preparado anterior.
-          </li>
-          <li className="list-disc poppins text-black text-xl">
-            Finalmente, adicione a farinha e o chocolate ralado.
-          </li>
-          <li className="list-disc poppins text-black text-xl">
-            Leve ao forno durante 35 minutos, numa forma redonda previamente
-            untada com manteiga e polvilhada com farinha.
-          </li>
-          <li className="list-disc poppins text-black text-xl">
-            Decore a superfície do bolo com as cascas de laranja e com chocolate
-            líquido.
-          </li>
+          {data.methodPreparation.split('\n').map((text, index) => {
+            if (text.length > 0) {
+              return (
+                <li
+                  key={index}
+                  className="list-disc poppins text-black text-xl"
+                >
+                  {text.length > 0 ? text : null}
+                </li>
+              );
+            }
+          })}
         </ul>
       </div>
     </section>

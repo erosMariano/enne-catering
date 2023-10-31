@@ -1,6 +1,7 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
+import NextTopLoader from 'nextjs-toploader';
 
 import MainNav from '@/components/main-nav';
 
@@ -44,6 +45,8 @@ export default function RootLayout({
       />
 
       <body className={`${inter.variable} ${poppins.variable}`}>
+        <NextTopLoader color="#00cc5e" />
+
         <AuthProvider>
           <MainNav />
           {children}

@@ -69,8 +69,7 @@ const revenueSchema = z.object({
     cooking: z.object({
       hour: z.string().min(1, { message: 'Defina quantas horas de cozimento' }),
       min: z.string().min(1, { message: 'Defina quantos minutos de cozimento' })
-    }),
-    total: z.string().min(1, { message: 'Defina um tempo total de preparo' })
+    })
   }),
   category: z.string().min(1, { message: 'A categoria é obrigatória' }),
   income: z.object({
@@ -86,7 +85,10 @@ const revenueSchema = z.object({
 });
 type RevenueSchema = z.infer<typeof revenueSchema>;
 
-export default function ChooseImage() {
+type Props = {
+  idUser?: string;
+};
+export default function ChooseImage({ idUser }: Props) {
   const {
     register,
     handleSubmit,
@@ -110,6 +112,7 @@ export default function ChooseImage() {
     title: '',
     description: '',
     presentation: '',
+    userId: String(idUser),
     preparationInformation: {
       preparation: 0,
       cooking: 0,
@@ -161,10 +164,12 @@ export default function ChooseImage() {
       ...prevState,
       preparationInformation: {
         ...prevState.preparationInformation,
-        preparation: totalPreparationTime
+        preparation: totalPreparationTime,
+        total: totalPreparationTime + prevState.preparationInformation.cooking
       }
     }));
   }
+  console.log(revenue);
 
   function handleCookingTime(type: 'hour' | 'min', value: string) {
     const newValue = Number(value);
@@ -181,7 +186,8 @@ export default function ChooseImage() {
       ...prevState,
       preparationInformation: {
         ...prevState.preparationInformation,
-        cooking: totalCooking
+        cooking: totalCooking,
+        total: totalCooking + prevState.preparationInformation.preparation
       }
     }));
   }
@@ -240,7 +246,7 @@ export default function ChooseImage() {
 
       const { slug } = await res.json();
 
-      router.push(`receitas/${slug}`);
+      router.push(`receita/${slug}`);
       reset();
     } catch (error) {
       console.log(error);
@@ -406,7 +412,6 @@ export default function ChooseImage() {
             <h4 className="text-titleGray poppins text-2xl font-medium text-center">
               *Tempo de Preparo:
             </h4>
-
             <div className="flex gap-4 w-[284px] mt-4">
               <input
                 {...register('preparationInformation.preparation.hour', {
@@ -494,29 +499,16 @@ export default function ChooseImage() {
 
             <div className="flex gap-4 w-[284px] mt-4">
               <input
-                {...register('preparationInformation.total', {
-                  onChange: (e) =>
-                    setRevenue((prevState) => ({
-                      ...prevState,
-                      preparationInformation: {
-                        ...prevState.preparationInformation,
-                        total: Number(e.target.value)
-                      }
-                    }))
-                })}
-                type="number"
+                value={`${
+                  revenue.preparationInformation.preparation +
+                  revenue.preparationInformation.cooking
+                }min`}
+                disabled
+                type="string"
                 placeholder="hora(s)"
                 className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
               />
             </div>
-            {errors.preparationInformation?.total && (
-              <p
-                className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.preparationInformation?.total.message}
-              </p>
-            )}
           </div>
         </div>
       </div>

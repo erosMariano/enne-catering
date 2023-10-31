@@ -5,12 +5,11 @@ import ChooseImage from '@/components/criar-receita/form-create';
 import Footer from '@/components/footer';
 
 import { authOptions } from '@/lib/auth-options';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 export default async function Article() {
   const session = await getServerSession(authOptions);
 
   if (!session) redirect('/login');
-  const prisma = new PrismaClient();
   const idUser = await prisma.user.findUnique({
     where: {
       email: String(session.user?.email)

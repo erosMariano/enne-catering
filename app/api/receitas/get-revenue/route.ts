@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
+
 export async function GET(request: Request) {
   const slug = request.url.split('?=')[1];
-
-  const prisma = new PrismaClient();
 
   const revenue = await prisma.revenues.findMany({
     where: {

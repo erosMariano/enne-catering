@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 
+import { prisma } from '@/lib/prisma';
 import { CreateRevenue } from '@/types/types';
-import { PrismaClient } from '@prisma/client';
 import { v4 as uuidv4 } from 'uuid';
 
-const prisma = new PrismaClient();
 export async function POST(req: Request) {
   const revenue: CreateRevenue = await req.json();
 

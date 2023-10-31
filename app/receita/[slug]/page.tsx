@@ -5,8 +5,8 @@ import Presentation from '@/components/blog/presentation';
 import Revenue from '@/components/blog/revenue';
 import Footer from '@/components/footer';
 
+import { prisma } from '@/lib/prisma';
 import { RevenueView } from '@/types/types';
-import { PrismaClient } from '@prisma/client';
 
 export default async function Article({
   params
@@ -15,7 +15,6 @@ export default async function Article({
 }) {
   const slug = params.slug;
   const url = process.env.NEXT_PUBLIC_URL;
-  const prisma = new PrismaClient();
 
   const res = await fetch(`${url}/api/receitas/get-revenue?=${slug}`, {
     method: 'GET'
@@ -74,7 +73,6 @@ export default async function Article({
 
 // Criar rota para todos os posts para deixar estático
 export async function generateStaticParams() {
-  const prisma = new PrismaClient();
   const receitas = await prisma.revenues.findMany();
 
   return receitas.map((receita) => ({

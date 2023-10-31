@@ -1,7 +1,7 @@
 'use client';
 
+import { useRouter } from 'next-nprogress-bar';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -12,6 +12,8 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/components/ui/use-toast';
 
 import UploadImage from '@/assets/images/icons/upload.svg';
 import { storage } from '@/firebase';
@@ -19,6 +21,7 @@ import { CreateRevenue } from '@/types/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { z } from 'zod';
+
 const typesSnack = [
   {
     value: 'item1',
@@ -30,7 +33,8 @@ const typesSnack = [
   }
 ];
 
-const MAX_FILE_SIZE = 1000000;
+const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
 const ACCEPTED_IMAGE_TYPES = [
   'image/jpeg',
   'image/jpg',
@@ -98,7 +102,11 @@ export default function ChooseImage({ idUser }: Props) {
   } = useForm<RevenueSchema>({
     resolver: zodResolver(revenueSchema)
   });
+
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [success, setIsSuccess] = useState(false);
+
   const router = useRouter();
   const [preparationTime, setPreparationTime] = useState({
     hour: 0,
@@ -234,8 +242,6 @@ export default function ChooseImage({ idUser }: Props) {
         ...revenue
       };
 
-      console.log('DATA: ', data);
-
       const res = await fetch('/api/receitas/create', {
         method: 'POST',
         headers: {
@@ -244,8 +250,14 @@ export default function ChooseImage({ idUser }: Props) {
         body: JSON.stringify(data)
       });
 
-      console.log('RES ===> ', res);
       const { slug } = await res.json();
+
+      setIsSuccess(true);
+      toast({
+        variant: 'success',
+        title: 'Receita criada com sucesso',
+        description: 'Estamos te redirecionando para sua receita!'
+      });
 
       router.push(`receita/${slug}`);
       reset();
@@ -257,495 +269,505 @@ export default function ChooseImage({ idUser }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit(handleSendItems)}>
-      <input
-        {...register('imageFile', {
-          onChange(e) {
-            handleImageChange(e);
-          }
-        })}
-        type="file"
-        accept="image/jpg, image/jpeg, image/png"
-        className="hidden"
-        ref={inputFile}
-      />
-
-      {!image ? (
-        <div className="relative border border-buttonGreen border-dashed h-[420px] flex items-center justify-center flex-col">
-          <Image src={UploadImage} width={116} height={90} alt="Ícone upload" />
-
-          <button
-            type="button"
-            onClick={handleGetImage}
-            className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center"
-          >
-            Escolher imagem
-          </button>
-
-          <div className="flex flex-col absolute left-4 bottom-4">
-            <span className="block text-[#999] text-base poppins">
-              Formatos aceitos:{' '}
-              <span className="text-[#666]">JPEG, JPG e PNG</span>
-            </span>
-
-            <span className="block text-[#999] text-base poppins">
-              Tamanho menor que <span className="text-[#666]"> 10MB</span>
-            </span>
-
-            <span className="block text-[#999] text-base poppins">
-              Dimensões recomendadas{' '}
-              <span className="text-[#666]">1020x420px</span>
-            </span>
-          </div>
-          <input type="file" accept=".jpg, .jpeg, .png" className="hidden" />
-        </div>
-      ) : (
-        <div className="relative border p-2 border-buttonGreen border-dashed flex items-center justify-center flex-col">
-          <Image
-            className="object-cover h-[420px] w-[1020px]"
-            width={1020}
-            height={420}
-            quality={100}
-            src={URL.createObjectURL(image)}
-            alt="Imagem"
-          />
-
-          <button
-            type="button"
-            onClick={handleGetImage}
-            className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center"
-          >
-            Escolher imagem
-          </button>
-        </div>
-      )}
-
-      {errors.imageFile?.message && (
-        <p
-          className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-          role="error"
-        >
-          {String(errors.imageFile.message)}
-        </p>
-      )}
-      <section className="pt-11">
-        <h3 className="poppins text-2xl text-titleGray font-medium mb-4">
-          *Título da Receita
-        </h3>
+    <>
+      <Toaster />
+      <form onSubmit={handleSubmit(handleSendItems)}>
         <input
-          type="text"
-          placeholder="Máx.: 100 carácteres"
-          maxLength={1200}
-          max={100}
-          {...register('title', {
-            onChange: (e) =>
-              setRevenue((prevState) => ({
-                ...prevState,
-                title: e.target.value
-              }))
+          {...register('imageFile', {
+            onChange(e) {
+              handleImageChange(e);
+            }
           })}
-          className="rounded-[2px] text-titleGray font-medium poppins border  border-buttonGreen outline-buttonGreen h-[60px] w-full px-5 placeholder:text-[#999]"
+          type="file"
+          accept="image/jpg, image/jpeg, image/png"
+          className="hidden"
+          ref={inputFile}
         />
-        {errors.title?.message && (
-          <p
-            className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-            role="error"
-          >
-            {errors.title.message}
-          </p>
-        )}
 
-        <h3 className="poppins text-2xl text-titleGray font-medium my-4">
-          *Breve descrição
-        </h3>
-        <input
-          {...register('description', {
-            onChange: (e) =>
-              setRevenue((prevState) => ({
-                ...prevState,
-                description: e.target.value
-              }))
-          })}
-          type="text"
-          placeholder="Máx.: 200 carácteres"
-          className="rounded-[2px] font-medium text-titleGray poppins border  border-buttonGreen outline-buttonGreen h-[60px] w-full px-5 placeholder:text-[#999]"
-        />
-        {errors.description?.message && (
-          <p
-            className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-            role="error"
-          >
-            {errors.description.message}
-          </p>
-        )}
-
-        <h3 className="mb-3 poppins text-2xl text-titleGray font-medium mt-4">
-          *Apresentação
-        </h3>
-        <textarea
-          {...register('presentation', {
-            onChange: (e) =>
-              setRevenue((prevState) => ({
-                ...prevState,
-                presentation: e.target.value
-              }))
-          })}
-          className="font-medium h-[472px] rounded-[2px] poppins border text-titleGray border-buttonGreen outline-buttonGreen w-full p-5 placeholder:text-[#999]"
-        ></textarea>
-
-        {errors.presentation?.message && (
-          <p
-            className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-            role="error"
-          >
-            {errors.presentation.message}
-          </p>
-        )}
-      </section>
-
-      <div>
-        <h2 className="inter text-[40px] text-titleGray font-extrabold mb-10 mt-12">
-          Informações do Preparo
-        </h2>
-
-        <div className="flex justify-between">
-          <div className="w-[284px]">
-            <h4 className="text-titleGray poppins text-2xl font-medium text-center">
-              *Tempo de Preparo:
-            </h4>
-            <div className="flex gap-4 w-[284px] mt-4">
-              <input
-                {...register('preparationInformation.preparation.hour', {
-                  onChange: (e) => handlePreparationTime('hour', e.target.value)
-                })}
-                type="number"
-                placeholder="hora(s)"
-                className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
-              />
-              <input
-                {...register('preparationInformation.preparation.min', {
-                  onChange: (e) => handlePreparationTime('min', e.target.value)
-                })}
-                type="number"
-                placeholder="Minuto(s)"
-                className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
-              />
-            </div>
-
-            {errors.preparationInformation?.preparation?.hour && (
-              <p
-                className="pt-2 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.preparationInformation?.preparation.hour.message}
-              </p>
-            )}
-
-            {errors.preparationInformation?.preparation?.min && (
-              <p
-                className="pt-2 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.preparationInformation?.preparation.min.message}
-              </p>
-            )}
-          </div>
-
-          <div className="w-[284px]">
-            <h4 className="text-titleGray poppins text-2xl font-medium text-center">
-              *Tempo de Cozimento:
-            </h4>
-
-            <div className="flex gap-4 w-[284px] mt-4">
-              <input
-                type="number"
-                placeholder="hora(s)"
-                className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
-                {...register('preparationInformation.cooking.hour', {
-                  onChange: (e) => handleCookingTime('hour', e.target.value)
-                })}
-              />
-              <input
-                {...register('preparationInformation.cooking.min', {
-                  onChange: (e) => handleCookingTime('min', e.target.value)
-                })}
-                type="number"
-                placeholder="Minuto(s)"
-                className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
-              />
-            </div>
-
-            {errors.preparationInformation?.cooking?.hour && (
-              <p
-                className="pt-2 mb-1 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.preparationInformation?.cooking.hour.message}
-              </p>
-            )}
-            {errors.preparationInformation?.cooking?.min && (
-              <p
-                className="text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.preparationInformation?.cooking.min.message}
-              </p>
-            )}
-          </div>
-
-          <div className="w-[292px]">
-            <h4 className="text-titleGray poppins text-2xl font-medium text-center">
-              Tempo total de Preparo:
-            </h4>
-
-            <div className="flex gap-4 w-[284px] mt-4">
-              <input
-                value={`${
-                  revenue.preparationInformation.preparation +
-                  revenue.preparationInformation.cooking
-                }min`}
-                disabled
-                type="string"
-                placeholder="hora(s)"
-                className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h2 className="inter text-[40px] text-titleGray font-extrabold mb-10 mt-12">
-          Informações adicionais
-        </h2>
-
-        <div className="flex justify-between">
-          <div className="w-[284px]">
-            <h4 className="text-titleGray poppins text-2xl font-medium text-center">
-              *Tipo de Refeição:
-            </h4>
-
-            <div className="flex gap-4 w-[284px] mt-4">
-              <Select
-                onValueChange={(e) => {
-                  setValue('category', e, {
-                    shouldValidate: true
-                  });
-                  setRevenue((prevState) => ({ ...prevState, category: e }));
-                }}
-              >
-                <SelectTrigger className="w-[284px] h-[54px] border border-buttonGreen p-4 outline-buttonGreen">
-                  <SelectValue placeholder="Selecione uma categoria" />
-                </SelectTrigger>
-                <SelectContent>
-                  {typesSnack.map((el) => (
-                    <SelectItem
-                      className="focus:bg-[#EDFCEB] cursor-pointer"
-                      key={el.value}
-                      value={el.value}
-                    >
-                      {el.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <input
-              type="text"
-              {...register('category')}
-              className="hidden"
-              value={revenue.category}
+        {!image ? (
+          <div className="relative border border-buttonGreen border-dashed h-[420px] flex items-center justify-center flex-col">
+            <Image
+              src={UploadImage}
+              width={116}
+              height={90}
+              alt="Ícone upload"
             />
-            {errors.category && (
-              <p
-                className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.category.message}
-              </p>
-            )}
+
+            <button
+              type="button"
+              onClick={handleGetImage}
+              className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center"
+            >
+              Escolher imagem
+            </button>
+
+            <div className="flex flex-col absolute left-4 bottom-4">
+              <span className="block text-[#999] text-base poppins">
+                Formatos aceitos:{' '}
+                <span className="text-[#666]">JPEG, JPG e PNG</span>
+              </span>
+
+              <span className="block text-[#999] text-base poppins">
+                Tamanho menor que <span className="text-[#666]"> 10MB</span>
+              </span>
+
+              <span className="block text-[#999] text-base poppins">
+                Dimensões recomendadas{' '}
+                <span className="text-[#666]">1020x420px</span>
+              </span>
+            </div>
+            <input type="file" accept=".jpg, .jpeg, .png" className="hidden" />
           </div>
+        ) : (
+          <div className="relative border p-2 border-buttonGreen border-dashed flex items-center justify-center flex-col">
+            <Image
+              className="object-cover h-[420px] w-[1020px]"
+              width={1020}
+              height={420}
+              quality={100}
+              src={URL.createObjectURL(image)}
+              alt="Imagem"
+            />
 
-          <div className="w-[298px]">
-            <h4 className="text-titleGray poppins text-2xl font-medium text-center">
-              *Rendimento de porção:
-            </h4>
+            <button
+              type="button"
+              onClick={handleGetImage}
+              className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center"
+            >
+              Escolher imagem
+            </button>
+          </div>
+        )}
 
-            <div className="flex gap-4 items-end">
-              <input
-                {...register('income.quantity', {
-                  onChange: (e) => {
-                    setRevenue((prevState) => ({
-                      ...prevState,
-                      income: {
-                        quantity: Number(e.target.value),
-                        type: prevState.income.type
-                      }
-                    }));
-                  }
-                })}
-                type="number"
-                placeholder="Quantidade"
-                className="w-full rounded-sm h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
-              />
+        {errors.imageFile?.message && (
+          <p
+            className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+            role="error"
+          >
+            {String(errors.imageFile.message)}
+          </p>
+        )}
+        <section className="pt-11">
+          <h3 className="poppins text-2xl text-titleGray font-medium mb-4">
+            *Título da Receita
+          </h3>
+          <input
+            type="text"
+            placeholder="Máx.: 100 carácteres"
+            maxLength={1200}
+            max={100}
+            {...register('title', {
+              onChange: (e) =>
+                setRevenue((prevState) => ({
+                  ...prevState,
+                  title: e.target.value
+                }))
+            })}
+            className="rounded-[2px] text-titleGray font-medium poppins border  border-buttonGreen outline-buttonGreen h-[60px] w-full px-5 placeholder:text-[#999]"
+          />
+          {errors.title?.message && (
+            <p
+              className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+              role="error"
+            >
+              {errors.title.message}
+            </p>
+          )}
 
-              <div className="flex gap-4 w-[130px] mt-4">
+          <h3 className="poppins text-2xl text-titleGray font-medium my-4">
+            *Breve descrição
+          </h3>
+          <input
+            {...register('description', {
+              onChange: (e) =>
+                setRevenue((prevState) => ({
+                  ...prevState,
+                  description: e.target.value
+                }))
+            })}
+            type="text"
+            placeholder="Máx.: 200 carácteres"
+            className="rounded-[2px] font-medium text-titleGray poppins border  border-buttonGreen outline-buttonGreen h-[60px] w-full px-5 placeholder:text-[#999]"
+          />
+          {errors.description?.message && (
+            <p
+              className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+              role="error"
+            >
+              {errors.description.message}
+            </p>
+          )}
+
+          <h3 className="mb-3 poppins text-2xl text-titleGray font-medium mt-4">
+            *Apresentação
+          </h3>
+          <textarea
+            {...register('presentation', {
+              onChange: (e) =>
+                setRevenue((prevState) => ({
+                  ...prevState,
+                  presentation: e.target.value
+                }))
+            })}
+            className="font-medium h-[180px] resize-none rounded-[2px] poppins border text-titleGray border-buttonGreen outline-buttonGreen w-full p-5 placeholder:text-[#999]"
+          ></textarea>
+
+          {errors.presentation?.message && (
+            <p
+              className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+              role="error"
+            >
+              {errors.presentation.message}
+            </p>
+          )}
+        </section>
+
+        <div>
+          <h2 className="inter text-[40px] text-titleGray font-extrabold mb-10 mt-12">
+            Informações do Preparo
+          </h2>
+
+          <div className="flex justify-between">
+            <div className="w-[284px]">
+              <h4 className="text-titleGray poppins text-2xl font-medium text-center">
+                *Tempo de Preparo:
+              </h4>
+              <div className="flex gap-4 w-[284px] mt-4">
+                <input
+                  {...register('preparationInformation.preparation.hour', {
+                    onChange: (e) =>
+                      handlePreparationTime('hour', e.target.value)
+                  })}
+                  type="number"
+                  placeholder="hora(s)"
+                  className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                />
+                <input
+                  {...register('preparationInformation.preparation.min', {
+                    onChange: (e) =>
+                      handlePreparationTime('min', e.target.value)
+                  })}
+                  type="number"
+                  placeholder="Minuto(s)"
+                  className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                />
+              </div>
+
+              {errors.preparationInformation?.preparation?.hour && (
+                <p
+                  className="pt-2 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.preparationInformation?.preparation.hour.message}
+                </p>
+              )}
+
+              {errors.preparationInformation?.preparation?.min && (
+                <p
+                  className="pt-2 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.preparationInformation?.preparation.min.message}
+                </p>
+              )}
+            </div>
+
+            <div className="w-[284px]">
+              <h4 className="text-titleGray poppins text-2xl font-medium text-center">
+                *Tempo de Cozimento:
+              </h4>
+
+              <div className="flex gap-4 w-[284px] mt-4">
+                <input
+                  type="number"
+                  placeholder="hora(s)"
+                  className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                  {...register('preparationInformation.cooking.hour', {
+                    onChange: (e) => handleCookingTime('hour', e.target.value)
+                  })}
+                />
+                <input
+                  {...register('preparationInformation.cooking.min', {
+                    onChange: (e) => handleCookingTime('min', e.target.value)
+                  })}
+                  type="number"
+                  placeholder="Minuto(s)"
+                  className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                />
+              </div>
+
+              {errors.preparationInformation?.cooking?.hour && (
+                <p
+                  className="pt-2 mb-1 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.preparationInformation?.cooking.hour.message}
+                </p>
+              )}
+              {errors.preparationInformation?.cooking?.min && (
+                <p
+                  className="text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.preparationInformation?.cooking.min.message}
+                </p>
+              )}
+            </div>
+
+            <div className="w-[292px]">
+              <h4 className="text-titleGray poppins text-2xl font-medium text-center">
+                Tempo total de Preparo:
+              </h4>
+
+              <div className="flex gap-4 w-[284px] mt-4">
+                <input
+                  value={`${
+                    revenue.preparationInformation.preparation +
+                    revenue.preparationInformation.cooking
+                  }min`}
+                  disabled
+                  type="string"
+                  placeholder="hora(s)"
+                  className="w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="inter text-[40px] text-titleGray font-extrabold mb-10 mt-12">
+            Informações adicionais
+          </h2>
+
+          <div className="flex justify-between">
+            <div className="w-[284px]">
+              <h4 className="text-titleGray poppins text-2xl font-medium text-center">
+                *Tipo de Refeição:
+              </h4>
+
+              <div className="flex gap-4 w-[284px] mt-4">
                 <Select
                   onValueChange={(e) => {
-                    console.log(e);
-                    setRevenue((prevState) => ({
-                      ...prevState,
-                      income: { quantity: prevState.income.quantity, type: e }
-                    }));
+                    setValue('category', e, {
+                      shouldValidate: true
+                    });
+                    setRevenue((prevState) => ({ ...prevState, category: e }));
                   }}
                 >
-                  <SelectTrigger className="w-[130px] h-[54px] border border-buttonGreen p-4 outline-buttonGreen">
-                    <SelectValue placeholder="Porção" />
+                  <SelectTrigger className="w-[284px] h-[54px] border border-buttonGreen p-4 outline-buttonGreen">
+                    <SelectValue placeholder="Selecione uma categoria" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem
-                      className="focus:bg-[#EDFCEB] cursor-pointer"
-                      value="Porção"
-                    >
-                      Porção
-                    </SelectItem>
-
-                    <SelectItem
-                      className="focus:bg-[#EDFCEB] cursor-pointer"
-                      value="Pedaço"
-                    >
-                      Pedaço
-                    </SelectItem>
-
-                    <SelectItem
-                      className="focus:bg-[#EDFCEB] cursor-pointer"
-                      value="Prato"
-                    >
-                      Prato
-                    </SelectItem>
-
-                    <SelectItem
-                      className="focus:bg-[#EDFCEB] cursor-pointer"
-                      value="Fatia"
-                    >
-                      Fatia
-                    </SelectItem>
+                    {typesSnack.map((el) => (
+                      <SelectItem
+                        className="focus:bg-[#EDFCEB] cursor-pointer"
+                        key={el.value}
+                        value={el.value}
+                      >
+                        {el.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
-            </div>
-
-            {errors.income?.quantity && (
-              <p
-                className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.income.quantity.message}
-              </p>
-            )}
-          </div>
-
-          <div className="w-[292px]">
-            <h4 className="text-titleGray poppins text-2xl font-medium text-center">
-              Calorias:
-            </h4>
-
-            <div className="flex gap-4 w-[284px] mt-4">
               <input
-                {...register('calories', {
-                  onChange(e) {
-                    setRevenue((prevState) => ({
-                      ...prevState,
-                      calories: Number(e.target.value)
-                    }));
-                  }
-                })}
-                type="number"
-                placeholder="00 Kcal"
-                className="text-center w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                type="text"
+                {...register('category')}
+                className="hidden"
+                value={revenue.category}
               />
+              {errors.category && (
+                <p
+                  className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.category.message}
+                </p>
+              )}
             </div>
-            {errors.calories && (
-              <p
-                className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-                role="error"
-              >
-                {errors.calories.message}
-              </p>
-            )}
+
+            <div className="w-[298px]">
+              <h4 className="text-titleGray poppins text-2xl font-medium text-center">
+                *Rendimento de porção:
+              </h4>
+
+              <div className="flex gap-4 items-end">
+                <input
+                  {...register('income.quantity', {
+                    onChange: (e) => {
+                      setRevenue((prevState) => ({
+                        ...prevState,
+                        income: {
+                          quantity: Number(e.target.value),
+                          type: prevState.income.type
+                        }
+                      }));
+                    }
+                  })}
+                  type="number"
+                  placeholder="Quantidade"
+                  className="w-full rounded-sm h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                />
+
+                <div className="flex gap-4 w-[130px] mt-4">
+                  <Select
+                    onValueChange={(e) => {
+                      console.log(e);
+                      setRevenue((prevState) => ({
+                        ...prevState,
+                        income: { quantity: prevState.income.quantity, type: e }
+                      }));
+                    }}
+                  >
+                    <SelectTrigger className="w-[130px] h-[54px] border border-buttonGreen p-4 outline-buttonGreen">
+                      <SelectValue placeholder="Porção" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem
+                        className="focus:bg-[#EDFCEB] cursor-pointer"
+                        value="Porção"
+                      >
+                        Porção
+                      </SelectItem>
+
+                      <SelectItem
+                        className="focus:bg-[#EDFCEB] cursor-pointer"
+                        value="Pedaço"
+                      >
+                        Pedaço
+                      </SelectItem>
+
+                      <SelectItem
+                        className="focus:bg-[#EDFCEB] cursor-pointer"
+                        value="Prato"
+                      >
+                        Prato
+                      </SelectItem>
+
+                      <SelectItem
+                        className="focus:bg-[#EDFCEB] cursor-pointer"
+                        value="Fatia"
+                      >
+                        Fatia
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {errors.income?.quantity && (
+                <p
+                  className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.income.quantity.message}
+                </p>
+              )}
+            </div>
+
+            <div className="w-[292px]">
+              <h4 className="text-titleGray poppins text-2xl font-medium text-center">
+                Calorias:
+              </h4>
+
+              <div className="flex gap-4 w-[284px] mt-4">
+                <input
+                  {...register('calories', {
+                    onChange(e) {
+                      setRevenue((prevState) => ({
+                        ...prevState,
+                        calories: Number(e.target.value)
+                      }));
+                    }
+                  })}
+                  type="number"
+                  placeholder="00 Kcal"
+                  className="text-center w-full h-[54px] border border-buttonGreen p-4 outline-buttonGreen"
+                />
+              </div>
+              {errors.calories && (
+                <p
+                  className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.calories.message}
+                </p>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div>
-        <h2 className="inter text-[40px] text-titleGray font-extrabold mb-3 mt-14">
-          Ingredientes
-        </h2>
-        <span className="poppins text-xl text-titleGray6">
-          *Insira os ingredientes por linha
-        </span>
+        <div>
+          <h2 className="inter text-[40px] text-titleGray font-extrabold mb-3 mt-14">
+            Ingredientes
+          </h2>
+          <span className="poppins text-xl text-titleGray6">
+            *Insira os ingredientes por linha
+          </span>
 
-        <textarea
-          value={revenue.ingredients}
-          {...register('ingredient', {
-            onChange: (e) =>
-              setRevenue((prevState) => ({
-                ...prevState,
-                ingredients: e.target.value
-              }))
-          })}
-          placeholder="Máx.: 500 carácteres"
-          maxLength={500}
-          className="mt-2 resize-none font-medium h-[400px] rounded-[2px] poppins border text-titleGray border-buttonGreen outline-buttonGreen w-full p-5 placeholder:text-[#999]"
-        ></textarea>
+          <textarea
+            value={revenue.ingredients}
+            {...register('ingredient', {
+              onChange: (e) =>
+                setRevenue((prevState) => ({
+                  ...prevState,
+                  ingredients: e.target.value
+                }))
+            })}
+            placeholder="Máx.: 500 carácteres"
+            maxLength={500}
+            className="mt-2 resize-none font-medium h-[400px] rounded-[2px] poppins border text-titleGray border-buttonGreen outline-buttonGreen w-full p-5 placeholder:text-[#999]"
+          ></textarea>
 
-        {errors?.ingredient && (
-          <p
-            className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-            role="error"
-          >
-            {errors.ingredient.message}
-          </p>
-        )}
-      </div>
+          {errors?.ingredient && (
+            <p
+              className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+              role="error"
+            >
+              {errors.ingredient.message}
+            </p>
+          )}
+        </div>
 
-      <div>
-        <h2 className="inter text-[40px] text-titleGray font-extrabold mb-3 mt-6">
-          Modo de Preparo
-        </h2>
-        <span className="poppins text-xl text-titleGray6">
-          *Insira as instruções por linha
-        </span>
+        <div>
+          <h2 className="inter text-[40px] text-titleGray font-extrabold mb-3 mt-6">
+            Modo de Preparo
+          </h2>
+          <span className="poppins text-xl text-titleGray6">
+            *Insira as instruções por linha
+          </span>
 
-        <textarea
-          {...register('methodPreparation', {
-            onChange: (e) =>
-              setRevenue((prevState) => ({
-                ...prevState,
-                methodPreparation: e.target.value
-              }))
-          })}
-          placeholder="Máx.: 1000 carácteres"
-          maxLength={1000}
-          className="mt-2 resize-none font-medium h-[400px] rounded-[2px] poppins border text-titleGray border-buttonGreen outline-buttonGreen w-full p-5 placeholder:text-[#999]"
-        ></textarea>
-        {errors?.methodPreparation && (
-          <p
-            className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-            role="error"
-          >
-            {errors.methodPreparation.message}
-          </p>
-        )}
-      </div>
+          <textarea
+            {...register('methodPreparation', {
+              onChange: (e) =>
+                setRevenue((prevState) => ({
+                  ...prevState,
+                  methodPreparation: e.target.value
+                }))
+            })}
+            placeholder="Máx.: 1000 carácteres"
+            maxLength={1000}
+            className="mt-2 resize-none font-medium h-[400px] rounded-[2px] poppins border text-titleGray border-buttonGreen outline-buttonGreen w-full p-5 placeholder:text-[#999]"
+          ></textarea>
+          {errors?.methodPreparation && (
+            <p
+              className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+              role="error"
+            >
+              {errors.methodPreparation.message}
+            </p>
+          )}
+        </div>
 
-      <button
-        disabled={isLoading}
-        type="submit"
-        className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center disabled:bg-[#006f33]"
-      >
-        {isLoading ? 'Enviando' : 'Enviar'}
-      </button>
-    </form>
+        <button
+          disabled={isLoading}
+          type="submit"
+          className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center disabled:bg-[#006f33]"
+        >
+          {isLoading ? 'Enviando' : success ? 'Enviado com sucesso' : 'Enviar'}
+        </button>
+      </form>
+    </>
   );
 }

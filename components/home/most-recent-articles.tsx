@@ -15,7 +15,7 @@ export default function MostRecentArticles() {
       <div className="container">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-[32px] inter font-bold text-titleBlack">
-            Artigos mais <span className="text-buttonGreen">Recentes</span>
+            Receitas mais <span className="text-buttonGreen">Recentes</span>
           </h2>
 
           <ButtonGreen variant="normal" href="#">

@@ -66,7 +66,7 @@ export default function MainNav() {
               <Link href="/">Home</Link>
             </li>
             <li className="hover:text-buttonGreen transition-all">
-              <Link href="/artigos">Artigos</Link>
+              <Link href="/receitas">Receitas</Link>
             </li>
             <li className="hover:text-buttonGreen transition-all">
               <Link href="/categorias/alimentacao-saudavel">

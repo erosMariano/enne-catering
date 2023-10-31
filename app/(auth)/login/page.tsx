@@ -9,7 +9,7 @@ import LogoLogin from '@/assets/images/icons/logo-login.svg';
 export default function Login() {
   return (
     <main className="flex h-[calc(100vh-130px)] mt-10 relative">
-      <div className="flex flex-col bg-white/4 backdrop-blur-lg justify-between flex-1 z-10 mt-[-7rem] pt-[7rem] relative">
+      <div className="flex flex-col bg-white/4  justify-between flex-1 z-10 mt-[-7rem] pt-[7rem] relative">
         <div className="flex items-center justify-center flex-1">
           <div className="flex flex-col items-center w-[80%] justify-center">
             <h1 className="inter text-[40px] font-extrabold text-titleGray mb-10">

@@ -250,16 +250,26 @@ export default function ChooseImage({ idUser }: Props) {
         body: JSON.stringify(data)
       });
 
-      const { slug } = await res.json();
+      const result = await res.json();
 
-      setIsSuccess(true);
+      if (result.message) {
+        toast({
+          variant: 'destructive',
+          title: 'Erro ao criar receita',
+          description: `${result.message}`
+        });
+        setIsSuccess(false);
+        return;
+      }
+
       toast({
         variant: 'success',
         title: 'Receita criada com sucesso',
         description: 'Estamos te redirecionando para sua receita!'
       });
+      setIsSuccess(true);
 
-      router.push(`receita/${slug}`);
+      router.push(`receita/${result.slug}`);
       reset();
     } catch (error) {
       console.log(error);
@@ -283,7 +293,6 @@ export default function ChooseImage({ idUser }: Props) {
           className="hidden"
           ref={inputFile}
         />
-
         {!image ? (
           <div className="relative border border-buttonGreen border-dashed h-[420px] flex items-center justify-center flex-col">
             <Image
@@ -338,7 +347,6 @@ export default function ChooseImage({ idUser }: Props) {
             </button>
           </div>
         )}
-
         {errors.imageFile?.message && (
           <p
             className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
@@ -421,7 +429,6 @@ export default function ChooseImage({ idUser }: Props) {
             </p>
           )}
         </section>
-
         <div>
           <h2 className="inter text-[40px] text-titleGray font-extrabold mb-10 mt-12">
             Informações do Preparo
@@ -534,7 +541,6 @@ export default function ChooseImage({ idUser }: Props) {
             </div>
           </div>
         </div>
-
         <div>
           <h2 className="inter text-[40px] text-titleGray font-extrabold mb-10 mt-12">
             Informações adicionais
@@ -697,7 +703,6 @@ export default function ChooseImage({ idUser }: Props) {
             </div>
           </div>
         </div>
-
         <div>
           <h2 className="inter text-[40px] text-titleGray font-extrabold mb-3 mt-14">
             Ingredientes
@@ -729,7 +734,6 @@ export default function ChooseImage({ idUser }: Props) {
             </p>
           )}
         </div>
-
         <div>
           <h2 className="inter text-[40px] text-titleGray font-extrabold mb-3 mt-6">
             Modo de Preparo
@@ -759,13 +763,38 @@ export default function ChooseImage({ idUser }: Props) {
             </p>
           )}
         </div>
-
         <button
-          disabled={isLoading}
+          disabled={isLoading || success}
           type="submit"
-          className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center disabled:bg-[#006f33]"
+          className="mt-6 w-[188px] h-[47px] text-base flex items-center justify-center poppins px-[58px] py-2 text-white  bg-buttonGreen rounded-full  disabled:bg-[#006f33]"
         >
-          {isLoading ? 'Enviando' : success ? 'Enviado com sucesso' : 'Enviar'}
+          {isLoading ? (
+            <div className="flex items-center">
+              <svg
+                className="animate-spin h-5 mr-2 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                ></path>
+              </svg>
+              <span className="text-base">Enviando</span>
+            </div>
+          ) : (
+            'Enviar'
+          )}
         </button>
       </form>
     </>

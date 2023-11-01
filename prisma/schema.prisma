@@ -9,9 +9,9 @@ datasource db {
 
 model revenues {
   id                String   @id
-  imageUrl          String
+  imageUrl          String   @db.Text
   title             String
-  slug              String
+  slug              String   @unique
   description       String   @db.LongText()
   preparation       Int
   cooking           Int

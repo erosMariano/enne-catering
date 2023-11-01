@@ -6,6 +6,6 @@ export function convertSecondsInMinutes(value: number) {
   if (value < 60) {
     return `${value}min`;
   } else {
-    return `${hour}${Number(hour) > 1 ? ' horas' : ' hora'} ${min}`;
+    return `${hour}${Number(hour) > 1 ? 'hrs' : 'hr'} ${min}`;
   }
 }

@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 
+import LoginGoogle from '@/components/buttons/login-google';
+
 import BannerLogin from '@/assets/images/banner-login2.png';
-import GoogleImage from '@/assets/images/icons/google.svg';
 import LogoLogin from '@/assets/images/icons/logo-login.svg';
 
 export default function Cadaster() {
@@ -55,15 +56,7 @@ export default function Cadaster() {
               Cadastrar nova conta
             </h1>
 
-            <button className="text-xl h-[52px] flex items-center gap-5 justify-center bg-backgroundGreen w-full max-w-[500px] rounded-full poppins font-medium text-titleGray">
-              <Image
-                src={GoogleImage}
-                width={40}
-                height={40}
-                alt="Ícone google fazer login"
-              />
-              Cadastrar com Google
-            </button>
+            <LoginGoogle callbackUrl="/cadastrar/detalhes" />
 
             <div className="flex w-[500px] items-center gap-10 my-10">
               <span className="bg-titleGray6 h-[1px] w-full flex-1 relative top-1"></span>

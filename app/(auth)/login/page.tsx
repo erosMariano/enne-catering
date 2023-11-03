@@ -16,7 +16,7 @@ export default function Login() {
               Entre com sua conta
             </h1>
 
-            <LoginGoogle />
+            <LoginGoogle callbackUrl="/artigos" />
 
             <div className="flex w-[500px] items-center gap-10 my-10">
               <span className="bg-titleGray6 h-[1px] w-full flex-1 relative top-1"></span>

@@ -6,10 +6,13 @@ import React from 'react';
 
 import GoogleImage from '@/assets/images/icons/google.svg';
 
-function LoginGoogle() {
+type Props = {
+  callbackUrl: string;
+};
+function LoginGoogle({ callbackUrl }: Props) {
   return (
     <button
-      onClick={() => signIn('google', { callbackUrl: '/artigos' })}
+      onClick={() => signIn('google', { callbackUrl: callbackUrl })}
       className="text-xl h-[52px] flex items-center gap-5 justify-center bg-backgroundGreen w-full max-w-[500px] rounded-full poppins font-medium text-titleGray"
     >
       <Image

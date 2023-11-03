@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ButtonGreen from '@/components/button-green';
 import Footer from '@/components/footer';
 import MostPopularArticles from '@/components/home/most-popular-articles';
 import MostRecentArticles from '@/components/home/most-recent-articles';
 import QuickNavigation from '@/components/home/quick-navigation';
 import Newsletter from '@/components/Newsletter';
+import ListCards from '@/components/templates/list-cards';
 
 import CardImage3 from '@/assets/images/bg-image-taco.jpg';
 import CardImage1 from '@/assets/images/bg-img-salad.jpg';
@@ -17,6 +17,35 @@ import PratoImage from '@/assets/images/img-prato-hero.png';
 import TomatoImage from '@/assets/images/tomato-blur.png';
 
 export default async function Home() {
+  const dataReceitasEmAlta = [
+    {
+      title: 'Salada Caesar',
+      description:
+        'Uma deliciosa opção de entrada para seu almoço. contém: alface, frango, croutons de trigo e molho.',
+      image: CardImage1,
+      url: '/'
+    },
+    {
+      title: ' Smoothie de morango',
+      description: 'Uma deliciosa opção de sobremesa para os dias ensolarados.',
+      image: CardImage2,
+      url: '/'
+    },
+    {
+      title: 'Tacos low carb',
+      description: 'Uma deliciosa opção de lanche da tarde rápido e fácil.',
+      image: CardImage3,
+      url: '/'
+    },
+    {
+      title: 'Suco refrescante',
+      description:
+        'Uma deliciosa opção de bebida saudável para dias ensolarados.',
+      image: CardImage4,
+      url: '/'
+    }
+  ];
+
   return (
     <>
       <main className="pt-[70px] mt-[-70px] bg-[url('../assets/images/bg-hero.jpg')] w-full bg-cover">
@@ -83,86 +112,12 @@ export default async function Home() {
           </div>
         </section>
       </main>
-      <section className="py-12">
-        <div className="container">
-          <div className="flex items-center justify-between mb-11">
-            <h2 className="text-[32px] inter font-bold text-titleBlack">
-              Receitas <span className="text-buttonGreen">em alta</span>
-            </h2>
-
-            <ButtonGreen variant="normal" href="#">
-              Ver mais
-            </ButtonGreen>
-          </div>
-
-          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-8 poppins">
-            <Link href="/">
-              <Image
-                src={CardImage1}
-                width={270}
-                height={260}
-                alt="Imagem Salada Caesar"
-                className="rounded-lg"
-              />
-              <h3 className="my-3 text-titleBlack text-xl font-normal">
-                Salada Caesar
-              </h3>
-              <p className="text-titleGray text-xs font-medium">
-                Uma deliciosa opção de entrada para seu almoço. contém: alface,
-                frango, croutons de trigo e molho.
-              </p>
-            </Link>
-
-            <Link href="/">
-              <Image
-                src={CardImage2}
-                width={270}
-                height={260}
-                alt="Imagem Smoothie de morango"
-                className="rounded-lg"
-              />
-              <h3 className="my-3 text-titleBlack text-xl font-normal">
-                Smoothie de morango
-              </h3>
-              <p className="text-titleGray text-xs font-medium">
-                Uma deliciosa opção de sobremesa para os dias ensolarados.
-              </p>
-            </Link>
-
-            <Link href="/">
-              <Image
-                src={CardImage3}
-                width={270}
-                height={260}
-                alt="Imagem Salada Caesar"
-                className="rounded-lg"
-              />
-              <h3 className="my-3 text-titleBlack text-xl font-normal">
-                Tacos low carb
-              </h3>
-              <p className="text-titleGray text-xs font-medium">
-                Uma deliciosa opção de lanche da tarde rápido e fácil.
-              </p>
-            </Link>
-
-            <Link href="/">
-              <Image
-                src={CardImage4}
-                width={270}
-                height={260}
-                alt="Imagem Salada Caesar"
-                className="rounded-lg"
-              />
-              <h3 className="my-3 text-titleBlack text-xl font-normal">
-                Suco refrescante
-              </h3>
-              <p className="text-titleGray text-xs font-medium">
-                Uma deliciosa opção de bebida saudável para dias ensolarados.
-              </p>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <ListCards
+        viewMore="/"
+        title="Receitas"
+        titleEmphasis="em alta"
+        dataCard={dataReceitasEmAlta}
+      />
 
       <QuickNavigation />
       <MostRecentArticles />

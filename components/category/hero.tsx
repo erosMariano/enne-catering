@@ -12,7 +12,7 @@ import imageCategory6 from '@/public/images/categoria-img-6.png';
 
 export default function HeroCategory() {
   return (
-    <main className="container pt-14">
+    <section className="container pt-14">
       <div className="flex gap-2 p-3">
         <div className="flex flex-col gap-2">
           <div className="flex gap-2 flex-col">
@@ -95,6 +95,6 @@ export default function HeroCategory() {
           />
         </div>
       </div>
-    </main>
+    </section>
   );
 }

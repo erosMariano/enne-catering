@@ -68,7 +68,7 @@ export default function AllRevenue() {
     }
   ];
   return (
-    <main className="container">
+    <section className="container">
       <h2 className="text-[32px] py-12 inter font-extrabold text-titleBlack text-center">
         Todas as Receitas
       </h2>
@@ -90,6 +90,6 @@ export default function AllRevenue() {
           </div>
         ))}
       </div>
-    </main>
+    </section>
   );
 }

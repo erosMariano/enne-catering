@@ -72,7 +72,7 @@ export default function CategoryPage() {
   ];
 
   return (
-    <>
+    <main>
       <HeroCategory />
       <AllRevenue />
       <ListCards
@@ -92,6 +92,6 @@ export default function CategoryPage() {
       <News />
       <Newsletter />
       <Footer />
-    </>
+    </main>
   );
 }

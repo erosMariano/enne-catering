@@ -56,7 +56,7 @@ export default function Cadaster() {
               Cadastrar nova conta
             </h1>
 
-            <LoginGoogle callbackUrl="/cadastrar/detalhes" />
+            <LoginGoogle callbackUrl="/perfil/detalhes" />
 
             <div className="flex w-[500px] items-center gap-10 my-10">
               <span className="bg-titleGray6 h-[1px] w-full flex-1 relative top-1"></span>

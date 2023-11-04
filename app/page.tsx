@@ -23,26 +23,26 @@ export default async function Home() {
       description:
         'Uma deliciosa opção de entrada para seu almoço. contém: alface, frango, croutons de trigo e molho.',
       image: CardImage1,
-      url: '/'
+      url: '/receita/receita-teste'
     },
     {
       title: ' Smoothie de morango',
       description: 'Uma deliciosa opção de sobremesa para os dias ensolarados.',
       image: CardImage2,
-      url: '/'
+      url: '/receita/receita-teste'
     },
     {
       title: 'Tacos low carb',
       description: 'Uma deliciosa opção de lanche da tarde rápido e fácil.',
       image: CardImage3,
-      url: '/'
+      url: '/receita/receita-teste'
     },
     {
       title: 'Suco refrescante',
       description:
         'Uma deliciosa opção de bebida saudável para dias ensolarados.',
       image: CardImage4,
-      url: '/'
+      url: '/receita/receita-teste'
     }
   ];
 
@@ -85,7 +85,7 @@ export default async function Home() {
                 trabalho, em casa, festas em família, lanchinho da tarde e mais!{' '}
               </p>
               <Link
-                href=""
+                href="/categorias"
                 className="w-[240px] group  hover:w-[260px] h-11 flex items-center pl-6 gap-16 bg-buttonGreen rounded-full mt-7 transition-all"
               >
                 <span className="text-white font-medium inter">

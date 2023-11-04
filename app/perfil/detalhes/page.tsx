@@ -1,14 +1,13 @@
 import React from 'react';
 
 import Footer from '@/components/footer';
+import TitlePagePerfil from '@/components/perfil/titlePage';
 
 function DetalhesUser() {
   return (
     <main className="flex flex-col justify-between min-h-screen">
       <section className="container mt-10 flex-1 pb-20">
-        <h2 className="inter text-[40px] font-extrabold mb-5 text-titleGray">
-          Boas vindas ao Enne Catering
-        </h2>
+        <TitlePagePerfil />
         <p className="mt-5 poppins font-medium text-2xl mb-10">
           Personalize seu perfil de acordo com suas informações.
         </p>

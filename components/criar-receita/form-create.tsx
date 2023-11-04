@@ -24,12 +24,52 @@ import { z } from 'zod';
 
 const typesSnack = [
   {
-    value: 'item1',
-    label: 'Item 1'
+    value: 'alimentacao Saudavela',
+    label: 'Alimentação Saudável'
   },
   {
-    value: 'item2',
-    label: 'Item 2'
+    value: 'aves',
+    label: 'Aves'
+  },
+  {
+    value: 'bebidas',
+    label: 'Bebidas'
+  },
+  {
+    value: 'bolos e tortas doces',
+    label: 'Bolos e Tortas Doces'
+  },
+  {
+    value: 'carnes',
+    label: 'Carnes'
+  },
+  {
+    value: 'doces e sobremesas',
+    label: 'Doces e Sobremesas'
+  },
+  {
+    value: 'lanches',
+    label: 'Lanches'
+  },
+  {
+    value: 'massas e molhos',
+    label: 'Massas e Molhos'
+  },
+  {
+    value: 'paes',
+    label: 'Pães'
+  },
+  {
+    value: 'peixes e Frutos do Mar',
+    label: 'Peixes e Frutos do Mar'
+  },
+  {
+    value: 'Sopas e caldos',
+    label: 'Sopas e Caldos'
+  },
+  {
+    value: 'aves',
+    label: 'Veganas e Vegetarianas'
   }
 ];
 
@@ -45,7 +85,12 @@ const ACCEPTED_IMAGE_TYPES = [
 const revenueSchema = z.object({
   imageFile: z
     .any()
-    .refine((files) => files?.length == 1, 'Faça upload da imagem')
+    .refine((files) => {
+      if (files?.length == 1 && files[0]?.name !== '') {
+        console.log(files);
+        return true;
+      }
+    }, 'Faça upload da imagem')
     .refine(
       (files) => files?.[0]?.size <= MAX_FILE_SIZE,
       `Tamanho máximo da imagem 10MB.`
@@ -329,21 +374,22 @@ export default function ChooseImage({ idUser }: Props) {
           </div>
         ) : (
           <div className="relative border p-2 border-buttonGreen border-dashed flex items-center justify-center flex-col">
-            <Image
-              className="object-cover h-[420px] w-[1020px]"
-              width={1020}
-              height={420}
-              quality={100}
-              src={URL.createObjectURL(image)}
-              alt="Imagem"
-            />
-
+            <div className="relative">
+              <Image
+                className="object-cover h-[420px] w-[1020px]"
+                width={1020}
+                height={420}
+                quality={100}
+                src={URL.createObjectURL(image)}
+                alt="Imagem"
+              />
+            </div>
             <button
               type="button"
               onClick={handleGetImage}
               className="mt-6 poppins px-[58px] py-2 text-white text-2xl bg-buttonGreen rounded-full flex items-center justify-center"
             >
-              Escolher imagem
+              Trocar imagem
             </button>
           </div>
         )}

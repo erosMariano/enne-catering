@@ -1,9 +1,10 @@
 'use client';
 
 import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next-nprogress-bar';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -19,11 +20,15 @@ import {
 
 import AvatarImage from '@/assets/images/icons/avatar.svg';
 import LogoImage from '@/assets/images/logo.svg';
+import { encodeURLParameter } from '@/utils/encodeURLParameter';
+import clsx from 'clsx';
 import { Search } from 'lucide-react';
 
 export default function MainNav() {
   const { data, status } = useSession();
   const isLogged = status === 'authenticated';
+  const [openSearch, setOpenSearch] = useState(true);
+  const inputSearch = useRef<HTMLInputElement>(null);
 
   const [showGradient, setShowGradient] = useState(false);
   const handleScroll = () => {
@@ -45,13 +50,31 @@ export default function MainNav() {
   useEffect(() => {
     handleScroll();
   }, []);
+
+  function handleChangeSearchModal() {
+    setOpenSearch((prevState) => !prevState);
+    if (openSearch) {
+      inputSearch.current?.focus();
+    }
+  }
+  const router = useRouter();
+  function handleSearchRevenue(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (inputSearch.current) {
+      router.push(
+        `/pesquisa?s=${encodeURLParameter(String(inputSearch.current.value))}`
+      );
+      inputSearch.current.innerHTML = '';
+      handleChangeSearchModal();
+    }
+  }
   return (
     <header
       className={`transition-all w-full flex items-center h-[70px] sticky top-0 z-30 ${
         showGradient ? 'bg-white/90' : 'bg-transparent'
       } poppins`}
     >
-      <div className="container flex items-center w-full">
+      <div className="container flex items-center w-full relative">
         <Link href="/">
           <Image
             src={LogoImage}
@@ -83,9 +106,33 @@ export default function MainNav() {
           </ul>
         </nav>
 
+        <form
+          onSubmit={(e) => handleSearchRevenue(e)}
+          className={clsx(
+            'w-full max-w-[800px] left-1/2 -translate-x-1/2 absolute flex items-center justify-center transition-all',
+            {
+              '-mt-32': openSearch
+            }
+          )}
+        >
+          <span className="block left-10 relative">
+            <Search width={24} height={24} color="#999999" />
+          </span>
+
+          <input
+            ref={inputSearch}
+            type="text"
+            placeholder="Busque aqui sua receita"
+            className="w-full max-w-[800px] h-12 rounded-full border border-[#DDDDDD]/50 pl-12 outline-buttonGreen"
+          />
+        </form>
         <div className="flex items-center gap-4">
-          <button>
-            <Search width={24} height={24} className="text-titleGray" />
+          <button onClick={handleChangeSearchModal}>
+            <Search
+              width={24}
+              height={24}
+              className="text-titleGray hover:text-buttonGreen transition-all"
+            />
           </button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -117,9 +164,12 @@ export default function MainNav() {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
-                      Perfil
-                    </DropdownMenuItem>
+                    <Link href="/perfil">
+                      <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
+                        Perfil
+                      </DropdownMenuItem>
+                    </Link>
+
                     <Link href="/criar-receita">
                       <DropdownMenuItem className="focus:bg-[#EDFCEB] cursor-pointer">
                         Criar receita
@@ -165,12 +215,4 @@ export default function MainNav() {
       </div>
     </header>
   );
-}
-
-{
-  /* <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                Log out
-                <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-              </DropdownMenuItem>*/
 }

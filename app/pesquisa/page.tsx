@@ -20,75 +20,75 @@ export default function Pesquisa({
   const receitasCafeManha = [
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Combinações para pão'
     },
     {
       imageUrl: Image2,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Panquecas com Geleia de frutas vermelhas'
     },
     {
       imageUrl: Image3,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Broa de fubá com goiabada'
     },
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Smoothie de Morango e Banana'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Torradas de Abacate com Ovo Poche'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Mingau de Aveia com Frutas'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Waffles de Mirtilo'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Omelete de Espinafre e Queijo'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Tapioca Recheada com Coco e Banana'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Pão de Queijo'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Iogurte com Granola e Mel'
     },
 
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Tigela de Açaí com Frutas e Granola'
     },
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Fala comigo'
     }
   ];

@@ -1,9 +1,29 @@
+import { getServerSession } from 'next-auth/next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 import Footer from '@/components/footer';
 
-function DetalhesUser() {
+import { authOptions } from '@/lib/auth-options';
+import { prisma } from '@/lib/prisma';
+
+export default async function DetalhesUser() {
+  const session = await getServerSession(authOptions);
+  if (!session) redirect('/login');
+
+  async function getDataUser() {
+    if (session && session.user) {
+      const data = await prisma.user.findUnique({
+        where: {
+          email: String(session.user.email)
+        }
+      });
+
+      return data;
+    }
+  }
+  const dataUser = await getDataUser();
   return (
     <main className="flex flex-col justify-between min-h-screen">
       <section className="container mt-10 flex-1 pb-20">
@@ -16,25 +36,21 @@ function DetalhesUser() {
             Nome de usuário:
           </span>
           <span className="text-xl poppins text-titleBlack font-medium block mb-10">
-            Eros dos Santos Mariano
+            {dataUser?.name}
           </span>
 
           <span className="text-xl poppins text-titleGray6 font-medium block mb-2">
             Qual sua função:
           </span>
           <span className="text-xl poppins text-titleBlack font-medium block  mb-10">
-            Nutricionista
+            {dataUser?.function ? dataUser.function : 'Não informado'}
           </span>
           <span className="text-xl poppins text-titleGray6 font-medium block mb-2">
             Adicione uma biografia ao seu perfil:
           </span>
 
           <span className="text-xl poppins text-titleBlack font-medium block">
-            Meu nome é João da Silva, e sou um nutricionista apaixonado por
-            ajudar as pessoas a alcançarem uma vida mais saudável por meio da
-            alimentação. Desde que me formei em Nutrição na Universidade XYZ,
-            tenho dedicado minha carreira a orientar indivíduos a fazerem
-            escolhas alimentares conscientes e equilibradas.
+            {dataUser?.description ? dataUser.description : 'Não informado'}
           </span>
         </div>
 
@@ -49,5 +65,3 @@ function DetalhesUser() {
     </main>
   );
 }
-
-export default DetalhesUser;

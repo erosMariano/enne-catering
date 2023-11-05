@@ -26,7 +26,7 @@ function ListCardCategory({
 
       <div className="mt-10 grid grid-cols-3 gap-x-5 gap-y-16">
         {data.slice(0, quantityCards).map((el) => (
-          <Link href={`/receita/${el.slug}`} key={el.title}>
+          <Link href={`/receitas/${el.slug}`} key={el.title}>
             <Image
               src={el.imageUrl}
               width={369}

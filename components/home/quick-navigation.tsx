@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import BreadImage from '@/assets/images/btn-bread.png';
@@ -11,32 +12,32 @@ import VeganImage from '@/assets/images/btn-vegan.png';
 export default function QuickNavigation() {
   const navigationItems = [
     {
-      href: '/',
+      href: '/categorias/area-vegeana',
       image: VeganImage,
       label: 'Área vegana'
     },
     {
-      href: '/',
+      href: '/categorias/saladas-e-entradas',
       image: SaladImage,
       label: 'Saladas e entradas'
     },
     {
-      href: '/',
+      href: '/categorias/sopas-e-caldos',
       image: SoupImage,
       label: 'Sopas e caldos'
     },
     {
-      href: '/',
+      href: '/categorias/paes',
       image: BreadImage,
       label: 'Pães'
     },
     {
-      href: '/',
+      href: '/categorias/massas',
       image: MassasImage,
       label: 'Massas'
     },
     {
-      href: '/',
+      href: '/categorias/sobremesas',
       image: SobremesaImage,
       label: 'Sobremesas'
     }
@@ -50,7 +51,7 @@ export default function QuickNavigation() {
 
         <div className="grid grid-cols-6 gap-11 mt-11">
           {navigationItems.map((item) => (
-            <div key={item.label}>
+            <Link href={item.href} key={item.label}>
               <Image
                 src={item.image}
                 width={160}
@@ -60,7 +61,7 @@ export default function QuickNavigation() {
               <span className="block poppins text-xl text-titleGray mt-5 text-center">
                 {item.label}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

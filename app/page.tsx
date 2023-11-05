@@ -23,26 +23,26 @@ export default async function Home() {
       description:
         'Uma deliciosa opção de entrada para seu almoço. contém: alface, frango, croutons de trigo e molho.',
       image: CardImage1,
-      url: '/receita/receita-teste'
+      url: '/receitas/bolo-simples'
     },
     {
       title: ' Smoothie de morango',
       description: 'Uma deliciosa opção de sobremesa para os dias ensolarados.',
       image: CardImage2,
-      url: '/receita/receita-teste'
+      url: '/receitas/bolo-simples'
     },
     {
       title: 'Tacos low carb',
       description: 'Uma deliciosa opção de lanche da tarde rápido e fácil.',
       image: CardImage3,
-      url: '/receita/receita-teste'
+      url: '/receitas/bolo-simples'
     },
     {
       title: 'Suco refrescante',
       description:
         'Uma deliciosa opção de bebida saudável para dias ensolarados.',
       image: CardImage4,
-      url: '/receita/receita-teste'
+      url: '/receitas/bolo-simples'
     }
   ];
 

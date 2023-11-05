@@ -30,32 +30,32 @@ export default function Article() {
   const receitasCafeManha = [
     {
       imageUrl: Image1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Combinações para pão'
     },
     {
       imageUrl: Image2,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Panquecas com Geleia de frutas vermelhas'
     },
     {
       imageUrl: Image3,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Broa de fubá com goiabada'
     },
     {
       imageUrl: Image4,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Crepioca de chocolate com creminho de Whey '
     },
     {
       imageUrl: Image5,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Crepioca recheada com queijo'
     },
     {
       imageUrl: Image6,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Overnight Oats com Banana e Pasta de Amendoim'
     }
   ];
@@ -63,32 +63,32 @@ export default function Article() {
   const receitasDiaADia = [
     {
       imageUrl: ImageDia1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Bolo de Banana com Aveia '
     },
     {
       imageUrl: ImageDia2,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Banana Bites com Banana e Chocolate'
     },
     {
       imageUrl: ImageDia3,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Overnight Oats sabor Tiramisu'
     },
     {
       imageUrl: ImageDia4,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Tapioca recheada'
     },
     {
       imageUrl: ImageDia5,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Bolinho de Arroz na Air Fryer'
     },
     {
       imageUrl: ImageDia6,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Snack de Grão-de-Bico Assado Crocante'
     }
   ];
@@ -96,22 +96,22 @@ export default function Article() {
   const receitasRefeicoes = [
     {
       imageUrl: ImageRefeicao1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Frango Xadrez com Legumes'
     },
     {
       imageUrl: ImageRefeicao2,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Peitos de Frango com Molho de Coentros e Lima'
     },
     {
       imageUrl: ImageRefeicao3,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Strogonoff de Frango Light'
     },
     {
       imageUrl: ImageDia4,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Tapioca recheada'
     }
   ];
@@ -119,17 +119,17 @@ export default function Article() {
   const receitasSobremesa = [
     {
       imageUrl: ImageSobremesa1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Docinho fit sem lactose'
     },
     {
       imageUrl: ImageSobremesa2,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Cookie de Pasta de Amendoim'
     },
     {
       imageUrl: ImageSobremesa3,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Bolo de limão Saudável na Air Fryer'
     }
   ];
@@ -137,17 +137,17 @@ export default function Article() {
   const receitasBebidas = [
     {
       imageUrl: ImageBebida1,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Smothie de Banana com Pasta de Amendoim'
     },
     {
       imageUrl: ImageBebida2,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Refresco de Frutas  Vermelhas '
     },
     {
       imageUrl: ImageBebida3,
-      slug: 'teste-teste',
+      slug: 'bolo-simples',
       title: 'Suco de Laranja Natural Fresco'
     }
   ];

@@ -32,10 +32,11 @@ model revenues {
 }
 
 model user {
-  id        String     @id
-  avatarUrl String
-  name      String
-  function  String
-  email     String     @unique()
-  revenues  revenues[]
+  id          String     @id
+  avatarUrl   String
+  name        String
+  function    String
+  description String     @db.LongText()
+  email       String     @unique()
+  revenues    revenues[]
 }

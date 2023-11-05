@@ -68,7 +68,7 @@ const typesSnack = [
     label: 'Sopas e Caldos'
   },
   {
-    value: 'aves',
+    value: 'Veganas e Vegetarianas',
     label: 'Veganas e Vegetarianas'
   }
 ];
@@ -314,7 +314,7 @@ export default function ChooseImage({ idUser }: Props) {
       });
       setIsSuccess(true);
 
-      router.push(`receita/${result.slug}`);
+      router.push(`receitas/${result.slug}`);
       reset();
     } catch (error) {
       console.log(error);

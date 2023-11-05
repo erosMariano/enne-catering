@@ -21,6 +21,11 @@ export default async function Article({
   });
 
   const { revenue }: RevenueView = await res.json();
+
+  console.log(revenue);
+  if (!revenue[0]) {
+    return <div>Que pena. ainda não temos essa receita olhe as outras...</div>;
+  }
   const {
     title,
     imageUrl,

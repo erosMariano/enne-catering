@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import ButtonGreen from '../button-green';
@@ -24,7 +25,7 @@ export default function MostPopularArticles() {
         </div>
 
         <div className="flex justify-between">
-          <div className="w-[771px]">
+          <Link href="/receitas/bolo-simples" className="w-[771px]">
             <div>
               <Image
                 src={ArtigoPopularImage}
@@ -40,15 +41,15 @@ export default function MostPopularArticles() {
               <h3 className="poppins text-xl font-normal text-titleGray mb-1 leading-10">
                 Substitua o pão no seu café!
               </h3>
-              <p className="text-xs poppins font-medium  text-titleGray max-w-[719px] leading-5">
+              <p className="text-base poppins font-medium  text-titleGray max-w-[719px] leading-5">
                 Veja 3 receitas para substituir ou intercalar o pão no café
                 manhã e assim o deixando ainda mais gostoso e nutritivo.
               </p>
             </div>
-          </div>
+          </Link>
 
           <div className="flex-1 grid grid-rows-3 gap-5 max-w-[313px]">
-            <div className="flex gap-2">
+            <Link href="/receitas/bolo-simples" className="flex gap-2">
               <Image
                 src={PaoImage}
                 width={132}
@@ -66,9 +67,9 @@ export default function MostPopularArticles() {
                   em 20min...
                 </p>
               </div>
-            </div>
+            </Link>
 
-            <div className="flex gap-2">
+            <Link href="/receitas/bolo-simples" className="flex gap-2">
               <Image
                 src={BoloImage}
                 width={132}
@@ -85,9 +86,9 @@ export default function MostPopularArticles() {
                   chocolate.
                 </p>
               </div>
-            </div>
+            </Link>
 
-            <div className="flex gap-2">
+            <Link href="/receitas/bolo-simples" className="flex gap-2">
               <Image
                 src={BatataImage}
                 width={132}
@@ -104,7 +105,7 @@ export default function MostPopularArticles() {
                   de petisco...
                 </p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

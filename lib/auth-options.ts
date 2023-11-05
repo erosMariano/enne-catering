@@ -29,7 +29,8 @@ export const authOptions: AuthOptions = {
               data: {
                 avatarUrl: user.image ? user.image : '',
                 email: user.email,
-                function: '',
+                function: 'Não informado',
+                description: 'Não informado',
                 name: String(user.name),
                 id: user.id
               }

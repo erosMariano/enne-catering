@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 import ButtonGreen from '../button-green';
@@ -24,7 +25,7 @@ export default function MostRecentArticles() {
         </div>
 
         <div className="flex justify-between">
-          <div className="w-[771px]">
+          <Link href="/receitas/bolo-simples" className="w-[771px]">
             <div>
               <Image
                 src={ArtigoRecenteImage}
@@ -41,15 +42,15 @@ export default function MostRecentArticles() {
                 Como calcular a quantidade de comidas, bebidas e doces para
                 festas.
               </h3>
-              <p className="text-xs poppins font-medium  text-titleGray max-w-[719px] leading-5">
+              <p className="text-base poppins font-medium  text-titleGray max-w-[719px] leading-5">
                 Se está planejando um festão ou uma festinha, saiba como
                 calcular a quantidade de alimentos necessários para o evento.
               </p>
             </div>
-          </div>
+          </Link>
 
           <div className="flex-1 grid grid-rows-3 gap-5 max-w-[313px]">
-            <div className="flex gap-2">
+            <Link href="/receitas/bolo-simples" className="flex gap-2">
               <Image
                 src={AirFryerImage}
                 width={132}
@@ -65,9 +66,9 @@ export default function MostRecentArticles() {
                   Como evitar que suas batatas fiquem moles na Air fryer.
                 </p>
               </div>
-            </div>
+            </Link>
 
-            <div className="flex gap-2">
+            <Link href="/receitas/bolo-simples" className="flex gap-2">
               <Image
                 src={BrownieImage}
                 width={132}
@@ -84,9 +85,9 @@ export default function MostRecentArticles() {
                   minutos!
                 </p>
               </div>
-            </div>
+            </Link>
 
-            <div className="flex gap-2">
+            <Link href="/receitas/bolo-simples" className="flex gap-2">
               <Image
                 src={ChaImage}
                 width={132}
@@ -102,7 +103,7 @@ export default function MostRecentArticles() {
                   Descubra 20 chás que são seus aliados para o dia a dia.
                 </p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

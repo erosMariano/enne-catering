@@ -34,6 +34,7 @@ export async function POST(req: Request) {
         calories: revenue.calories,
         presentation: revenue.presentation,
         category: revenue.category,
+        typeRevenue: revenue.typeRevenue,
         description: revenue.description,
         cooking: revenue.preparationInformation.cooking,
         preparation: revenue.preparationInformation.preparation,

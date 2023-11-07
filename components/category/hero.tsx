@@ -93,12 +93,12 @@ export default function HeroCategory() {
             <Image
               src={imageCategory5}
               height={400}
-              alt="Carnes e Frutos do Mar"
+              alt="Carnes"
               quality={100}
             />
             <ButtonCategory
               className="absolute bottom-5 left-5"
-              label="Carnes e Frutos do Mar"
+              label="Carnes"
             />
           </Link>
         </div>

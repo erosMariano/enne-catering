@@ -85,6 +85,7 @@ export default function AllRevenue() {
               quality={100}
               width={200}
               height={200}
+              className="w-[200px] h-[200px] object-contain"
             />
             <ButtonCategory label={el.label} className="mt-5" />
           </div>

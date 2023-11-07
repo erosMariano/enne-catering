@@ -9,7 +9,7 @@ export interface CreateRevenue {
     cooking: number;
     total: number;
   };
-
+  typeRevenue: string;
   category: string;
   income: {
     quantity: number;

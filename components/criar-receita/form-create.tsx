@@ -22,9 +22,32 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { z } from 'zod';
 
+const typeRevenue = [
+  {
+    value: 'receita-para-cafe-da-manha',
+    label: 'Receita para Café da Manhã'
+  },
+  {
+    value: 'receita-para-dia-a-dia',
+    label: 'Receita para Dia a Dia'
+  },
+  {
+    value: 'receita-para-refeicoes',
+    label: 'Receita para Refeições'
+  },
+  {
+    value: 'receita-para-sobremesas',
+    label: 'Receita para Sobremesas'
+  },
+  {
+    value: 'receita-para-bebidas',
+    label: 'Receita para Bebidas'
+  }
+];
+
 const typesSnack = [
   {
-    value: 'alimentacao Saudavela',
+    value: 'alimentacao-saudavela',
     label: 'Alimentação Saudável'
   },
   {
@@ -36,7 +59,7 @@ const typesSnack = [
     label: 'Bebidas'
   },
   {
-    value: 'bolos e tortas doces',
+    value: 'bolos-e-tortas-doces',
     label: 'Bolos e Tortas Doces'
   },
   {
@@ -44,7 +67,7 @@ const typesSnack = [
     label: 'Carnes'
   },
   {
-    value: 'doces e sobremesas',
+    value: 'doces-e-sobremesas',
     label: 'Doces e Sobremesas'
   },
   {
@@ -52,7 +75,7 @@ const typesSnack = [
     label: 'Lanches'
   },
   {
-    value: 'massas e molhos',
+    value: 'massas-e-molhos',
     label: 'Massas e Molhos'
   },
   {
@@ -60,19 +83,18 @@ const typesSnack = [
     label: 'Pães'
   },
   {
-    value: 'peixes e Frutos do Mar',
+    value: 'peixes-e-frutos-do-mar',
     label: 'Peixes e Frutos do Mar'
   },
   {
-    value: 'Sopas e caldos',
+    value: 'sopas-e-caldos',
     label: 'Sopas e Caldos'
   },
   {
-    value: 'Veganas e Vegetarianas',
+    value: 'veganas-e-vegetarianas',
     label: 'Veganas e Vegetarianas'
   }
 ];
-
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
 const ACCEPTED_IMAGE_TYPES = [
@@ -121,6 +143,9 @@ const revenueSchema = z.object({
     })
   }),
   category: z.string().min(1, { message: 'A categoria é obrigatória' }),
+  typeRevenue: z
+    .string()
+    .min(1, { message: 'O tipo da refeição é obrigatório' }),
   income: z.object({
     quantity: z.string().min(1, {
       message: 'Defina uma quantidade de rendimento'
@@ -171,6 +196,7 @@ export default function ChooseImage({ idUser }: Props) {
       cooking: 0,
       total: 0
     },
+    typeRevenue: '',
     category: '',
     income: {
       quantity: 0,
@@ -428,29 +454,79 @@ export default function ChooseImage({ idUser }: Props) {
             </p>
           )}
 
-          <h3 className="poppins text-2xl text-titleGray font-medium my-4">
-            *Breve descrição
-          </h3>
-          <input
-            {...register('description', {
-              onChange: (e) =>
-                setRevenue((prevState) => ({
-                  ...prevState,
-                  description: e.target.value
-                }))
-            })}
-            type="text"
-            placeholder="Máx.: 200 carácteres"
-            className="rounded-[2px] font-medium text-titleGray poppins border  border-buttonGreen outline-buttonGreen h-[60px] w-full px-5 placeholder:text-[#999]"
-          />
-          {errors.description?.message && (
-            <p
-              className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
-              role="error"
-            >
-              {errors.description.message}
-            </p>
-          )}
+          <div className="flex  gap-5 items-baseline">
+            <div className="flex-1">
+              <h3 className="poppins text-2xl text-titleGray font-medium my-4">
+                *Breve descrição
+              </h3>
+              <input
+                {...register('description', {
+                  onChange: (e) =>
+                    setRevenue((prevState) => ({
+                      ...prevState,
+                      description: e.target.value
+                    }))
+                })}
+                type="text"
+                placeholder="Máx.: 200 carácteres"
+                className="rounded-[2px] font-medium text-titleGray poppins border  border-buttonGreen outline-buttonGreen h-[60px] w-full px-5 placeholder:text-[#999]"
+              />
+              {errors.description?.message && (
+                <p
+                  className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.description.message}
+                </p>
+              )}
+            </div>
+
+            <div className="w-[377px]">
+              <h4 className="text-titleGray poppins text-2xl font-medium">
+                *Selecione uma categoria
+              </h4>
+
+              <div className="flex gap-4 w-[377px] mt-4">
+                <Select
+                  onValueChange={(e) => {
+                    setValue('category', e, {
+                      shouldValidate: true
+                    });
+                    setRevenue((prevState) => ({ ...prevState, category: e }));
+                  }}
+                >
+                  <SelectTrigger className="w-[377px] h-[60px] border border-buttonGreen p-4 outline-buttonGreen">
+                    <SelectValue placeholder="Informe qual a categoria da receita" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {typesSnack.map((el) => (
+                      <SelectItem
+                        className="focus:bg-[#EDFCEB] cursor-pointer"
+                        key={el.value}
+                        value={el.value}
+                      >
+                        {el.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <input
+                type="text"
+                {...register('category')}
+                className="hidden"
+                value={revenue.category}
+              />
+              {errors.category && (
+                <p
+                  className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
+                  role="error"
+                >
+                  {errors.category.message}
+                </p>
+              )}
+            </div>
+          </div>
 
           <h3 className="mb-3 poppins text-2xl text-titleGray font-medium mt-4">
             *Apresentação
@@ -601,17 +677,20 @@ export default function ChooseImage({ idUser }: Props) {
               <div className="flex gap-4 w-[284px] mt-4">
                 <Select
                   onValueChange={(e) => {
-                    setValue('category', e, {
+                    setValue('typeRevenue', e, {
                       shouldValidate: true
                     });
-                    setRevenue((prevState) => ({ ...prevState, category: e }));
+                    setRevenue((prevState) => ({
+                      ...prevState,
+                      typeRevenue: e
+                    }));
                   }}
                 >
                   <SelectTrigger className="w-[284px] h-[54px] border border-buttonGreen p-4 outline-buttonGreen">
                     <SelectValue placeholder="Selecione uma categoria" />
                   </SelectTrigger>
                   <SelectContent>
-                    {typesSnack.map((el) => (
+                    {typeRevenue.map((el) => (
                       <SelectItem
                         className="focus:bg-[#EDFCEB] cursor-pointer"
                         key={el.value}
@@ -625,16 +704,16 @@ export default function ChooseImage({ idUser }: Props) {
               </div>
               <input
                 type="text"
-                {...register('category')}
+                {...register('typeRevenue')}
                 className="hidden"
-                value={revenue.category}
+                value={revenue.typeRevenue}
               />
-              {errors.category && (
+              {errors.typeRevenue && (
                 <p
                   className="pt-2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-red-400"
                   role="error"
                 >
-                  {errors.category.message}
+                  {errors.typeRevenue.message}
                 </p>
               )}
             </div>

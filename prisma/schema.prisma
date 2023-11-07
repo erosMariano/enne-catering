@@ -17,6 +17,7 @@ model revenues {
   cooking           Int
   total             Int
   category          String
+  typeRevenue       String
   incomeQuantity    Int
   incomeType        String
   calories          Int

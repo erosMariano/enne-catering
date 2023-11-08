@@ -12,6 +12,7 @@ interface HeroProps {
   user: User;
 }
 export default function Hero({ imageUrl, title, user }: HeroProps) {
+  console.log(user.function);
   return (
     <div className="mb-5">
       <Image
@@ -38,7 +39,7 @@ export default function Hero({ imageUrl, title, user }: HeroProps) {
                 {user.name}
               </span>
               <span className="text-titleGray6 poppins text-base">
-                {user.function === '' ? 'Função não informada' : ''}
+                {user.function === '' ? 'Função não informada' : user.function}
               </span>
             </div>
 

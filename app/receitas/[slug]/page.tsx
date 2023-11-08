@@ -63,6 +63,7 @@ export default async function Article({
     calories: calories
   };
 
+  // Pegar os dados do usuario e passar corretamente
   return (
     <>
       <main className="max-w-[1020px] mx-auto pt-10 pb-32">
@@ -74,8 +75,6 @@ export default async function Article({
     </>
   );
 }
-
-// Criar rota para todos os posts para deixar estático
 export async function generateStaticParams() {
   const receitas = await prisma.revenues.findMany();
 

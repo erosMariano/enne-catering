@@ -62,7 +62,9 @@ export default function MainNav() {
     event.preventDefault();
     if (inputSearch.current) {
       router.push(
-        `/pesquisa?s=${encodeURLParameter(String(inputSearch.current.value))}`
+        `/pesquisa?s=${encodeURLParameter(
+          String(inputSearch.current.value)
+        )}&page=1`
       );
       inputSearch.current.innerHTML = '';
       handleChangeSearchModal();

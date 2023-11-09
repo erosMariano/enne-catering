@@ -34,6 +34,9 @@ function ListCardCategory({
               className="rounded-[4px] w-full h-[220px] object-cover"
             />
             <h3 className="mt-3 poppins text-xl">{el.title}</h3>
+            <p className="text-titleGray text-xs font-medium poppins">
+              {el.description}
+            </p>
           </Link>
         ))}
       </div>

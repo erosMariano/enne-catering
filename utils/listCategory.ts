@@ -89,5 +89,20 @@ export const categoriesInfos = [
     label: 'Veganas e Vegetarianas',
     slug: 'veganas-e-vegetarianas',
     imageBg: ImageBg
+  },
+  {
+    label: 'Área Vegana',
+    slug: 'area-vegeana',
+    imageBg: ImageBg
+  },
+  {
+    label: 'Massas',
+    slug: 'massas',
+    imageBg: ImageBg
+  },
+  {
+    label: 'Saladas e Entradas',
+    slug: 'saladas-e-entradas',
+    imageBg: ImageBg
   }
 ];

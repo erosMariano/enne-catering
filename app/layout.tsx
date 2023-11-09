@@ -1,8 +1,11 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter, Poppins } from 'next/font/google';
+import { Suspense } from 'react';
 
+import Footer from '@/components/footer';
 import MainNav from '@/components/main-nav';
+import Newsletter from '@/components/Newsletter';
 
 import Providers from './providers';
 
@@ -47,10 +50,14 @@ export default function RootLayout({
 
       <body className={`${inter.variable} ${poppins.variable}`}>
         <AuthProvider>
-          <Providers>
-            <MainNav />
-            {children}
-          </Providers>
+          <Suspense fallback={<></>}>
+            <Providers>
+              <MainNav />
+              {children}
+              <Newsletter />
+              <Footer />
+            </Providers>
+          </Suspense>
         </AuthProvider>
       </body>
     </html>

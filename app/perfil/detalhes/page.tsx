@@ -21,7 +21,6 @@ export default async function EditDetails() {
     }
   });
 
-  console.log(userData);
   return (
     <EditContent
       description={userData?.description}

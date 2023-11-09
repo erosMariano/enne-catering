@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import Footer from '@/components/footer';
 import MostPopularArticles from '@/components/home/most-popular-articles';
 import MostRecentArticles from '@/components/home/most-recent-articles';
 import QuickNavigation from '@/components/home/quick-navigation';
-import Newsletter from '@/components/Newsletter';
 import ListCards from '@/components/templates/list-cards';
 
 import CardImage3 from '@/assets/images/bg-image-taco.jpg';
@@ -122,8 +120,6 @@ export default async function Home() {
       <QuickNavigation />
       <MostRecentArticles />
       <MostPopularArticles />
-      <Newsletter />
-      <Footer />
     </>
   );
 }

@@ -36,6 +36,7 @@ export interface GetRevenue {
   quantity: number;
   type: string;
   calories: number;
+  typeRevenue: string;
   methodPreparation: string;
   ingredients: string;
   createAt?: Date;

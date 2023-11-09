@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
 
-import Footer from '@/components/footer';
-import Newsletter from '@/components/Newsletter';
 import Pagination from '@/components/pesquisa/pagination';
 import SearchElementPage from '@/components/pesquisa/search-element-page';
 import ListCardCategory from '@/components/templates/list-cards-category';
@@ -155,9 +153,7 @@ export default function Pesquisa({
         </section>
 
         <Pagination quantity={7} />
-        <Newsletter />
       </main>
-      <Footer />
     </>
   );
 }

@@ -3,8 +3,6 @@ import React from 'react';
 import AllRevenue from '@/components/category/all-revenue';
 import HeroCategory from '@/components/category/hero';
 import News from '@/components/category/news';
-import Footer from '@/components/footer';
-import Newsletter from '@/components/Newsletter';
 import ListCards from '@/components/templates/list-cards';
 
 import ImageEmAlta3 from '@/public/images/categories/bg-image-banoffe.png';
@@ -90,8 +88,6 @@ export default function CategoryPage() {
         dataCard={receitasEmAlta}
       />
       <News />
-      <Newsletter />
-      <Footer />
     </main>
   );
 }

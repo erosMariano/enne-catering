@@ -15,7 +15,7 @@ type Props = {
     };
     ingredients: string;
     methodPreparation: string;
-    rendimento: string;
+    rendimento: number;
     category: string;
     incomeType: string;
     calories: number;

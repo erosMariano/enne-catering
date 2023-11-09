@@ -6,7 +6,6 @@ import Revenue from '@/components/blog/revenue';
 import Footer from '@/components/footer';
 
 import { prisma } from '@/lib/prisma';
-import { RevenueView } from '@/types/types';
 
 export default async function Article({
   params
@@ -14,13 +13,12 @@ export default async function Article({
   params: { slug: string };
 }) {
   const slug = params.slug;
-  const url = process.env.NEXT_PUBLIC_URL;
 
-  const res = await fetch(`${url}/api/receitas/get-revenue?=${slug}`, {
-    method: 'GET'
+  const revenue = await prisma.revenues.findMany({
+    where: {
+      slug: slug
+    }
   });
-
-  const { revenue }: RevenueView = await res.json();
 
   if (!revenue[0]) {
     return <div>Que pena. ainda não temos essa receita olhe as outras...</div>;
@@ -43,7 +41,7 @@ export default async function Article({
 
   const user = await prisma.user.findUnique({
     where: {
-      id: revenue[0].userId
+      id: String(revenue[0].userId)
     }
   });
 
@@ -63,7 +61,6 @@ export default async function Article({
     calories: calories
   };
 
-  // Pegar os dados do usuario e passar corretamente
   return (
     <>
       <main className="max-w-[1020px] mx-auto pt-10 pb-32">
@@ -75,10 +72,13 @@ export default async function Article({
     </>
   );
 }
+
 export async function generateStaticParams() {
   const receitas = await prisma.revenues.findMany();
 
-  return receitas.map((receita) => ({
+  const data = receitas.map((receita) => ({
     slug: receita.slug
   }));
+
+  return data;
 }

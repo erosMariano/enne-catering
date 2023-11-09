@@ -1,16 +1,14 @@
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+
+import { GetRevenue } from '@/types/types';
 
 interface ListCardCategoryProps {
   title: string;
   emphasis: string;
   quantityCards: number;
-  data: {
-    imageUrl: StaticImageData | string;
-    slug: string;
-    title: string;
-  }[];
+  data: GetRevenue[];
 }
 function ListCardCategory({
   title,

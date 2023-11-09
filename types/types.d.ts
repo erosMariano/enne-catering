@@ -24,7 +24,9 @@ export interface CreateRevenue {
 }
 
 export interface GetRevenue {
-  imageUrl?: string;
+  slug: string;
+  userId: string | null;
+  imageUrl: string;
   title: string;
   description: string;
   presentation: string;
@@ -33,10 +35,11 @@ export interface GetRevenue {
   cooking: number;
   total: number;
   category: string;
-  quantity: number;
-  type: string;
+  incomeQuantity: number;
+  incomeType: string;
   calories: number;
   typeRevenue: string;
+
   methodPreparation: string;
   ingredients: string;
   createAt?: Date;

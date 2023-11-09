@@ -3,11 +3,11 @@ import React from 'react';
 
 import Pagination from '@/components/pesquisa/pagination';
 import SearchElementPage from '@/components/pesquisa/search-element-page';
-import ListCardCategory from '@/components/templates/list-cards-category';
+// import ListCardCategory from '@/components/templates/list-cards-category';
 
-import Image1 from '@/public/images/categories/categorias-manha-1.png';
-import Image2 from '@/public/images/categories/categorias-manha-2.png';
-import Image3 from '@/public/images/categories/categorias-manha-3.png';
+// import Image1 from '@/public/images/categories/categorias-manha-1.png';
+// import Image2 from '@/public/images/categories/categorias-manha-2.png';
+// import Image3 from '@/public/images/categories/categorias-manha-3.png';
 import { encodeURLParameter } from '@/utils/encodeURLParameter';
 export default function Pesquisa({
   searchParams
@@ -15,81 +15,81 @@ export default function Pesquisa({
   searchParams: { s: string };
 }) {
   const title = searchParams.s;
-  const receitasCafeManha = [
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Combinações para pão'
-    },
-    {
-      imageUrl: Image2,
-      slug: 'bolo-simples',
-      title: 'Panquecas com Geleia de frutas vermelhas'
-    },
-    {
-      imageUrl: Image3,
-      slug: 'bolo-simples',
-      title: 'Broa de fubá com goiabada'
-    },
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Smoothie de Morango e Banana'
-    },
+  // const receitasCafeManha = [
+  //   {
+  //     imageUrl: String(Image1),
+  //     slug: 'bolo-simples',
+  //     title: 'Combinações para pão'
+  //   },
+  //   {
+  //     imageUrl: Image2,
+  //     slug: 'bolo-simples',
+  //     title: 'Panquecas com Geleia de frutas vermelhas'
+  //   },
+  //   {
+  //     imageUrl: Image3,
+  //     slug: 'bolo-simples',
+  //     title: 'Broa de fubá com goiabada'
+  //   },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Smoothie de Morango e Banana'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Torradas de Abacate com Ovo Poche'
-    },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Torradas de Abacate com Ovo Poche'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Mingau de Aveia com Frutas'
-    },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Mingau de Aveia com Frutas'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Waffles de Mirtilo'
-    },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Waffles de Mirtilo'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Omelete de Espinafre e Queijo'
-    },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Omelete de Espinafre e Queijo'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Tapioca Recheada com Coco e Banana'
-    },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Tapioca Recheada com Coco e Banana'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Pão de Queijo'
-    },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Pão de Queijo'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Iogurte com Granola e Mel'
-    },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Iogurte com Granola e Mel'
+  //   },
 
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Tigela de Açaí com Frutas e Granola'
-    },
-    {
-      imageUrl: Image1,
-      slug: 'bolo-simples',
-      title: 'Fala comigo'
-    }
-  ];
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Tigela de Açaí com Frutas e Granola'
+  //   },
+  //   {
+  //     imageUrl: Image1,
+  //     slug: 'bolo-simples',
+  //     title: 'Fala comigo'
+  //   }
+  // ];
 
   return (
     <>
@@ -144,12 +144,12 @@ export default function Pesquisa({
             </span>
           </p>
 
-          <ListCardCategory
+          {/* <ListCardCategory
             quantityCards={12}
             title=""
             emphasis=""
             data={receitasCafeManha}
-          />
+          /> */}
         </section>
 
         <Pagination quantity={7} />

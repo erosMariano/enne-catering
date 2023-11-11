@@ -17,7 +17,7 @@ async function getSearchRevenues(
     prisma.revenues.count({
       where: {
         title: {
-          search: searchText
+          contains: searchText
         }
       }
     }),
@@ -26,12 +26,13 @@ async function getSearchRevenues(
       skip: skipNumber,
       where: {
         title: {
-          search: searchText
+          contains: searchText
         }
       }
     })
   ]);
 
+  console.log(revenues);
   return {
     count: revenues[0],
     revenues: revenues[1]

@@ -32,7 +32,7 @@ async function getSearchRevenues(
     })
   ]);
 
-  console.log(revenues);
+  await prisma.$disconnect();
   return {
     count: revenues[0],
     revenues: revenues[1]

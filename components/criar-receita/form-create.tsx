@@ -130,7 +130,7 @@ const revenueSchema = z.object({
   description: z
     .string()
     .min(1, { message: 'A descrição é obrigatória' })
-    .max(200, { message: 'Máximo 200 carácteres' }),
+    .max(300, { message: 'Máximo 300 carácteres' }),
   presentation: z.string().min(20, {
     message: 'A apresentação é obrigatória com no mínimo 20 carácteres'
   }),

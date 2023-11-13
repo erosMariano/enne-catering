@@ -10,5 +10,7 @@ export async function GET(request: Request) {
       slug: slug
     }
   });
+  await prisma.$disconnect();
+
   return NextResponse.json({ revenue });
 }

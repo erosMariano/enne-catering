@@ -10,7 +10,6 @@ export async function POST(req: Request) {
   if (session && session.user && session.user.email) {
     try {
       const body = await req.json();
-      console.log(body);
 
       await prisma.revenues.delete({
         where: {
@@ -18,6 +17,7 @@ export async function POST(req: Request) {
         }
       });
 
+      await prisma.$disconnect();
       return NextResponse.json(
         {
           message: 'Post deletado com sucesso'

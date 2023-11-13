@@ -37,6 +37,8 @@ export const authOptions: AuthOptions = {
             });
           }
         }
+        await prisma.$disconnect();
+
         return true;
       } catch (error) {
         console.log(error);

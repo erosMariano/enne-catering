@@ -60,6 +60,7 @@ export default async function Article({
     incomeType: incomeType,
     calories: calories
   };
+  await prisma.$disconnect();
 
   return (
     <>
@@ -75,6 +76,7 @@ export default async function Article({
 
 export async function generateStaticParams() {
   const receitas = await prisma.revenues.findMany();
+  await prisma.$disconnect();
 
   const data = receitas.map((receita) => ({
     slug: receita.slug

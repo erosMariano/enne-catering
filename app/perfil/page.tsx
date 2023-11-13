@@ -30,7 +30,7 @@ export default async function DetalhesUser() {
 
       return { user: user, posts: posts };
     }
-
+    await prisma.$disconnect();
     return { user: null, posts: [] };
   }
 

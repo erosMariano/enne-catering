@@ -15,6 +15,7 @@ export default async function Article() {
       email: String(session.user?.email)
     }
   });
+  await prisma.$disconnect();
 
   return (
     <>

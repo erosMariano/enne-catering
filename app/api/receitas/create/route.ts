@@ -49,6 +49,8 @@ export async function POST(req: Request) {
         userId: revenue.userId
       }
     });
+    await prisma.$disconnect();
+
     if (create.id) {
       return NextResponse.json(
         {

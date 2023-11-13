@@ -47,6 +47,7 @@ async function getRevenues(slug: string) {
       revenueLists.receitasBebidas.push(el);
     }
   });
+  await prisma.$disconnect();
 
   const quantityPostInPage = data.length;
   return {

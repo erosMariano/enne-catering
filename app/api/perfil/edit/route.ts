@@ -22,6 +22,7 @@ export async function POST(req: Request) {
         }
       });
 
+      await prisma.$disconnect();
       return NextResponse.json(
         {
           message: 'Perfil editado com sucesso'

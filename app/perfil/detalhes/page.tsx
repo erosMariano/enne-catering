@@ -20,6 +20,7 @@ export default async function EditDetails() {
       email: session.user?.email
     }
   });
+  await prisma.$disconnect();
 
   return (
     <EditContent

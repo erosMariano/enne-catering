@@ -13,8 +13,22 @@ import CardImage4 from '@/assets/images/bg-img-suco.jpg';
 import ArrowButtonNext from '@/assets/images/icons/arrow-button-next.svg';
 import PratoImage from '@/assets/images/img-prato-hero.png';
 import TomatoImage from '@/assets/images/tomato-blur.png';
+import { prisma } from '@/lib/prisma';
 
+async function getMoreRecent() {
+  const revenues = await prisma.revenues.findMany({
+    take: 4,
+    orderBy: {
+      createAt: 'desc'
+    }
+  });
+
+  await prisma.$disconnect();
+  return revenues;
+}
 export default async function Home() {
+  const moreRecentRevenue = await getMoreRecent();
+
   const dataReceitasEmAlta = [
     {
       title: 'Salada Caesar',
@@ -118,7 +132,7 @@ export default async function Home() {
       />
 
       <QuickNavigation />
-      <MostRecentArticles />
+      <MostRecentArticles data={moreRecentRevenue} />
       <MostPopularArticles />
     </>
   );
